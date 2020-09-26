@@ -1,0 +1,31 @@
+@import "../../main.scss";
+
+.search-container {
+  background-color: $light-gray;
+  border-radius: 5px;
+  height: 32px;
+  display: flex;
+  position: relative;
+  display: flex;
+  align-items: center;
+  &:after {
+    content: "";
+    background-image: url("../../assets//images//search.png");
+    background-size: cover;
+    position: absolute;
+    left: 7px;
+    height: 24px;
+    width: 24px;
+  }
+  input {
+    outline: none;
+    border: none;
+    padding: 0 34px;
+    display: flex;
+    width: 50px;
+    background-color: transparent;
+    font-family: "roboto-regular";
+    justify-content: center;
+    align-items: center;
+  }
+}

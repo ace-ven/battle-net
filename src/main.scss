@@ -1,0 +1,53 @@
+@font-face {
+  font-family: "Baloo-bold";
+  font-style: normal;
+  src: local("Open Sans"), local("test-font"),
+    url("./assets/fonts/BalooTammudu2-Bold.ttf"); /* IE6-IE8 */
+}
+
+@font-face {
+  font-family: "Baloo-bold";
+  font-style: normal;
+  src: local("Open Sans"), local("test-font"),
+    url("./assets/fonts/BalooTammudu2-Bold.ttf"); /* IE6-IE8 */
+}
+
+@font-face {
+  font-family: "Baloo-regular";
+  font-style: normal;
+  src: local("Open Sans"), local("test-font"),
+    url("./assets/fonts/BalooTammudu2-Regular.ttf"); /* IE6-IE8 */
+}
+
+@font-face {
+  font-family: "Baloo-medium";
+  font-style: normal;
+  src: local("Open Sans"), local("test-font"),
+    url("./assets/fonts/BalooTammudu2-Medium.ttf"); /* IE6-IE8 */
+}
+
+@font-face {
+  font-family: "Baloo-semi-bold";
+  font-style: normal;
+  src: local("Open Sans"), local("test-font"),
+    url("./assets/fonts/BalooTammudu2-SemiBold.ttf"); /* IE6-IE8 */
+}
+
+@font-face {
+  font-family: "roboto-regular";
+  font-style: normal;
+  src: local("Open Sans"), local("test-font"),
+    url("./assets/fonts/Roboto-Regular.ttf"); /* IE6-IE8 */
+}
+
+@font-face {
+  font-family: "roboto-bold";
+  font-style: normal;
+  src: local("Open Sans"), local("test-font"),
+    url("./assets/fonts/Roboto-Bold.ttf"); /* IE6-IE8 */
+}
+
+$main-font-color-light: rgba(0, 0, 0, 0.7);
+$main-font-color-dark: white;
+$light-gray: rgb(248, 249, 250);
+$size-m: 24px;

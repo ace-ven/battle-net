@@ -1,0 +1,53 @@
+.avatar-container {
+  position: relative;
+  outline: none;
+  cursor: pointer;
+  background-image: url("https://scontent.fhfa1-2.fna.fbcdn.net/v/t1.0-9/21034515_10155781072722904_1265718448031097009_n.jpg?_nc_cat=104&_nc_sid=09cbfe&_nc_ohc=klWi2DBJ1f0AX8zJNnB&_nc_ht=scontent.fhfa1-2.fna&oh=c3ea4fca0fd529fc15001cb3cf8fd3a0&oe=5F93C9FC");
+  height: 40px;
+  width: 40px;
+  background-size: cover;
+  border-radius: 50%;
+  .avatar-ddl {
+    position: absolute;
+    right: 85px;
+    top: 50px;
+    opacity: 0;
+    z-index: -1;
+    transition: 0.4s ease;
+    &.visible {
+      opacity: 1;
+      z-index: 1;
+    }
+    .list {
+      position: absolute;
+      top: 7px;
+      width: 115px;
+      box-shadow: 1px 1px 8px 1px #dedada;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-radius: 5px;
+      &:after {
+        content: "";
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid #ffffff;
+        position: absolute;
+        top: -5px;
+        right: 50px;
+      }
+      div {
+        height: 36px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 1px solid #dedada;
+        cursor: pointer;
+        &:last-child {
+          border: none;
+        }
+      }
+    }
+  }
+}

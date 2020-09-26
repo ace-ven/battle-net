@@ -1,0 +1,14 @@
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  &.rounded {
+  }
+  border-radius: 15px;
+  padding: 10px;
+  &.empty {
+    border: 1px solid;
+  }
+  &.full {
+  }
+}
