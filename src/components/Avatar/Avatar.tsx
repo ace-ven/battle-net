@@ -1,17 +1,21 @@
 import React, { useState } from "react";
+import { SwitchInput } from "../inputs/SwitchInput";
 import "./Avatar.scss";
 
-const Avatar = () => {
-  const [shodDDL, setDDLStatus] = useState(false);
+const Avatar = (props: any) => {
+  const [shodDDL, setDDLStatus] = useState(true);
   return (
     <div
       className="avatar-container"
       onClick={() => setDDLStatus(!shodDDL)}
-      onBlur={() => setDDLStatus(!shodDDL)}
       tabIndex={1}
     >
       <div className={`avatar-ddl ${shodDDL ? "visible" : "hidden"}`}>
-        <AvatarDDL show={(status) => setDDLStatus(status)} />
+        <AvatarDDL
+          show={(status) => setDDLStatus(status)}
+          fn={props.changeTheme}
+          isDarkMode={props.isDarkMode}
+        />
       </div>
     </div>
   );
@@ -19,15 +23,27 @@ const Avatar = () => {
 
 type AvatarDDLProps = {
   show(status: boolean): void;
+  fn?: any;
+  isDarkMode?: Boolean;
 };
 
 const AvatarDDL = (props: AvatarDDLProps) => {
-  const elements: Array<string> = ["Profile", "History", "Log out"];
+  console.log("rp[", props);
+  const elements: Array<any> = [
+    { name: "Profile" },
+    { name: "History" },
+    {
+      name: "Dark Mode",
+      component: <SwitchInput active={props.isDarkMode} onSwitch={props.fn} />,
+    },
+    { name: "Log out" },
+  ];
   return (
     <div className="list">
       {elements.map((elem) => (
         <div className="item" onClick={() => props.show(false)}>
-          {elem}
+          <p>{elem.name}</p>
+          {elem.component ? elem.component : <React.Fragment />}
         </div>
       ))}
     </div>

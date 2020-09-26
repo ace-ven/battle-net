@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { changeTheme } from "../../../store/actions/UI.actions";
 import Avatar from "../../Avatar/Avatar";
 import RegularBtn from "../../Buttons/Buttons";
 import SearchComponent from "../../Search/Search";
 import AppLogo from "../AppLogo/AppLogo";
 
-const AppHeader = () => {
-  const isLoogedIn = true;
+const AppHeader = (props: any) => {
+  const [isLoogedIn, setLogin] = useState(false);
   return (
     <nav className="app-header">
       <div className="left">
@@ -21,15 +23,17 @@ const AppHeader = () => {
       <div className="app-header-action right">
         <SearchComponent />
         {isLoogedIn ? (
-          <Avatar />
+          <Avatar
+            changeTheme={props.changeTheme}
+            isDarkMode={props.UI.darkMode}
+          />
         ) : (
           <>
             <RegularBtn
               text={"Sign In"}
-              fn={() => {}}
+              fn={() => setLogin(true)}
               color={"black"}
               bold={true}
-              //   fill={"black"}
             />
             <RegularBtn
               text={"Register"}
@@ -46,4 +50,16 @@ const AppHeader = () => {
   );
 };
 
-export default AppHeader;
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    changeTheme: () => dispatch(changeTheme()),
+  };
+};
+
+const mapStateToProps = (state: any) => {
+  return {
+    UI: state.UI,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppHeader);

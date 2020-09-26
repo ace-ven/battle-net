@@ -13,14 +13,15 @@ export const history = createBrowserHistory();
 
 const AppRouter: React.FC = () => {
   return (
-    <div className="layout">
-      <Router history={history}>
-        <AppHeader />
+    <Router history={history}>
+      <AppHeader />
+      <div className="vertical-border"></div>
+      <div className="layout">
         <Switch>
           <Route path="/" component={HomePage} exact={true} />
         </Switch>
-      </Router>
-    </div>
+      </div>
+    </Router>
   );
 };
 
