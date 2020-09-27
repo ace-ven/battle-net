@@ -1,5 +1,11 @@
 @import "../../main.scss";
 
+.dark {
+  .search-container {
+    box-shadow: 0px 0px 2px 0px white;
+    background-color: transparent;
+  }
+}
 .search-container {
   background-color: $light-gray;
   border-radius: 5px;

@@ -1,26 +1,183 @@
-.app-switch {
-  width: 35px !important;
-  height: 20px !important;
-  background-color: #ececec;
-  border-radius: 25px;
-  box-shadow: inset 0px 0px 4px 1px #e2e0e0;
+.switch-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  transition: background-color 0.2s ease;
-  &.active {
-    background-color: #ff9800;
-  }
-  .switch-circle {
-    height: 16px !important;
-    width: 16px !important;
-    border-radius: 50%;
-    background-color: white;
-    margin: 0 !important;
-    padding: 0 !important;
-    margin-left: 2px !important;
-    transition: margin-left 0.2s ease;
+  height: 50px;
+  justify-content: space-around;
+  .app-switch {
+    width: 35px !important;
+    height: 20px !important;
+    background-color: transparent;
+    border-radius: 25px;
+    box-shadow: inset 0px 0px 4px 1px #e2e0e0;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.2s ease;
+    margin: 0 4px;
+    cursor: pointer;
     &.active {
-      margin-left: 16px !important;
+      // background-color: #ff9800;
+      &.primary {
+        background-color: #2196f3;
+      }
+      &.danger {
+        background-color: #e91e63;
+      }
+      &.regular {
+        background-color: #673ab7;
+      }
+      &.alert {
+        background-color: #ff9800;
+      }
     }
+
+    .switch-circle {
+      height: 16px !important;
+      width: 16px !important;
+      border-radius: 50%;
+      background-color: white;
+      margin: 0 !important;
+      padding: 0 !important;
+      margin-left: 2px !important;
+      transition: margin-left 0.2s ease;
+      box-shadow: 1px 1px 3px 0px #bbb;
+      &.active {
+        margin-left: 16px !important;
+      }
+    }
+  }
+}
+
+.input-text-container {
+  font-family: "Baloo-bold";
+  // font-family: "Quicksand", sans-serif;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-bottom: 1px solid #ff9800;
+  height: 60px;
+  transition: border 0.2s ease;
+  // margin-top: 20px;
+  &.up {
+    border-bottom: 1px solid #ffc107;
+    label {
+      font-size: 12px;
+      bottom: 28px;
+      color: #ffc107;
+    }
+  }
+
+  input {
+    outline: none;
+    border: none;
+    transition: border 0.3s ease;
+    background-color: transparent;
+    width: 100%;
+    height: 50px;
+    z-index: 2;
+    position: absolute;
+    top: 20px;
+    color: #5f5f5f;
+    font-weight: 500;
+    font-size: 14px;
+    font-family: "Baloo-bold";
+  }
+
+  .input {
+    outline: none;
+    border: none;
+    transition: border 0.3s ease;
+    background-color: transparent;
+    width: 100%;
+    // height: 50px;
+    height: 25px;
+
+    z-index: 2;
+    position: absolute;
+    top: 65%;
+    color: #5f5f5f;
+    font-weight: 400;
+    font-size: 15px;
+  }
+
+  .open {
+    &.drop-list {
+      position: absolute;
+      // border: 1px solid $red-light;
+      border: 1px solid #ffab90;
+      width: 100px;
+      top: 65px;
+      border-radius: 5px;
+      height: 95px;
+      opacity: 1;
+      z-index: 1;
+      div {
+        // height: 31px;
+        // border-bottom: 1px solid $red-light;
+        // color: $red-light;
+        // padding-left: 15px;
+        // display: flex;
+        // align-items: center;
+        // font-weight: 500;
+        // font-size: 15px;
+        // background-color: #292c33;
+        height: 31px;
+        border-bottom: 1px solid #ffab90;
+        color: #ffab90;
+        padding-left: 15px;
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 15px;
+        background-color: #ffffff;
+        z-index: 2;
+        cursor: pointer;
+
+        &:last-child {
+          border-bottom: none;
+        }
+        &.input-active {
+          &:after {
+            content: "";
+            // border-right: 2px solid $red-light;
+            // border-bottom: 2px solid $red-light;
+            border-right: 2px solid #ffab90;
+            border-bottom: 2px solid #ffab90;
+            height: 13px;
+            position: absolute;
+            right: 15px;
+            width: 7px;
+            transform: rotate(40deg);
+          }
+        }
+      }
+    }
+  }
+
+  .drop-list {
+    height: 0;
+    transition: height 0.2s ease, opacity 0.2s ease;
+    overflow: hidden;
+    opacity: 0;
+    div {
+      height: 31px;
+      border-bottom: 1px solid transparent;
+      color: transparent;
+      padding-left: 15px;
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+      font-size: 15px;
+    }
+  }
+
+  label {
+    font-size: 20px;
+    position: absolute;
+    bottom: 0px;
+    transition: font-size 0.3s ease, bottom 0.3s ease;
+    color: #ff572280;
+    height: 35px;
+    text-transform: capitalize;
   }
 }

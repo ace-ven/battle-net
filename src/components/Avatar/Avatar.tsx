@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { SwitchInput } from "../inputs/SwitchInput";
 import "./Avatar.scss";
 
@@ -42,8 +43,10 @@ const AvatarDDL = (props: AvatarDDLProps) => {
     <div className="list">
       {elements.map((elem) => (
         <div className="item" onClick={() => props.show(false)}>
-          <p>{elem.name}</p>
-          {elem.component ? elem.component : <React.Fragment />}
+          <Link to={elem.name}>
+            <p>{elem.name}</p>
+            {elem.component ? elem.component : <React.Fragment />}
+          </Link>
         </div>
       ))}
     </div>

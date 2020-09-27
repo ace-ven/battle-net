@@ -1,15 +1,57 @@
 @import "../../main.scss";
+html {
+  scroll-behavior: smooth;
+}
+.dark {
+  $main-font-color-light: blue;
+  $main-font-color-dark: orange !important;
+  $light-gray: rgb(248, 249, 250);
+  $size-m: 10200000px;
+  $main-bg-color: #282c34;
+
+  .app-brand {
+    div {
+      background-image: url("../../assets/images/logo-white.png") !important;
+    }
+  }
+  .content {
+    background-color: $main-bg-color;
+    .left {
+      .app-header-navigation {
+        a {
+          color: $main-font-color-dark;
+        }
+      }
+    }
+    .right {
+    }
+  }
+  .app-header-container {
+    background-color: $main-bg-color !important;
+  }
+}
+
 .app-layout {
   .content {
     transition: background-color 0.7s ease;
-    position: relative;
+    position: absolute;
     height: 100vh;
-  }
-  .vertical-border {
-    width: 100%;
-    height: 1px;
+    top: auto;
+    left: 0;
+    right: 0;
     bottom: 0;
-    box-shadow: 0px 1px 3px 0px #bbb;
+    overflow: hidden;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+  }
+  .app-header-container {
+    position: fixed;
+    border-bottom: 1px solid #b3b1b130;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: $main-font-color-dark;
+    z-index: 1;
   }
   .app-header {
     height: 64px;
@@ -38,7 +80,7 @@
       }
       .app-brand {
         div {
-          background-image: url("../../assets/images/logo.png");
+          background-image: url("../../assets/images/logo-black.png");
           height: 50px;
           width: 50px;
           background-size: contain;
@@ -74,26 +116,9 @@
     }
   }
 
-  &.dark {
-    $main-font-color-light: blue;
-    $main-font-color-dark: orange !important;
-    $light-gray: rgb(248, 249, 250);
-    $size-m: 10200000px;
-    .content {
-      background-color: #282c34;
-      .left {
-        .app-header-navigation {
-          a {
-            color: $main-font-color-dark;
-          }
-        }
-      }
-      .right {
-      }
-    }
-  }
-
   .layout {
+    position: relative;
+    top: 60px;
     height: calc(100vh - 86px);
     width: 100vh;
     padding-right: 15px;
@@ -101,5 +126,10 @@
     margin-right: auto;
     margin-left: auto;
     margin: auto;
+    margin-top: 18px;
+    top: 83px;
+    left: 0;
+    right: 0;
+    bottom: 0;
   }
 }

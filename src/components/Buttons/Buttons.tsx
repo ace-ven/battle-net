@@ -9,6 +9,7 @@ type ButtonProps = {
   empty?: boolean;
   borderColor?: string;
   bold?: boolean;
+  borderWidth?: string;
   fn(): any;
 };
 
@@ -21,6 +22,7 @@ const RegularBtn = (props: ButtonProps) => {
     color,
     bold,
     borderColor = "transparent",
+    borderWidth = "1px",
   } = props;
   return (
     <button
@@ -30,6 +32,7 @@ const RegularBtn = (props: ButtonProps) => {
         color: color,
         borderColor: borderColor,
         fontWeight: bold ? "bold" : 400,
+        borderWidth: borderWidth,
       }}
       onClick={fn}
     >

@@ -1,0 +1,122 @@
+{
+  "challengeName": {
+    "display": "Challenge name",
+    "type": "text",
+    "value": "",
+    "name": "challengeName"
+  },
+  "difficultly": {
+    "display": "Level",
+    "type": "text",
+    "value": "",
+    "name": "difficultly"
+  },
+  "duration": {
+    "display": "Duration",
+    "type": "number",
+    "value": "",
+    "name": "duration"
+  },
+  "description": {
+    "display": "Description",
+    "type": "text",
+    "value": "",
+    "name": "description"
+  },
+  "functionParams": {
+    "display": "Function Parameters",
+    "type": "text",
+    "value": "",
+    "name": "functionParams"
+  },
+  "paramA1": {
+    "display": "first",
+    "type": "text",
+    "value": "",
+    "name": "paramA1"
+  },
+  "typeA1": {
+    "display": "type",
+    "type": "ddl",
+    "value": "",
+    "name": "typeA1"
+  },
+  "paramA2": {
+    "display": "second",
+    "type": "text",
+    "value": "",
+    "name": "paramA2"
+  },
+  "typeA2": {
+    "display": "type",
+    "type": "ddl",
+    "value": "",
+    "name": "typeA2"
+  },
+  "desireA": {
+    "display": "desire",
+    "type": "text",
+    "value": "",
+    "name": "desireA"
+  },
+  "paramB1": {
+    "display": "first",
+    "type": "text",
+    "value": "",
+    "name": "paramB1"
+  },
+  "typeB1": {
+    "display": "type",
+    "type": "ddl",
+    "value": "",
+    "name": "typeB1"
+  },
+  "paramB2": {
+    "display": "second",
+    "type": "text",
+    "value": "",
+    "name": "paramB2"
+  },
+  "typeB2": {
+    "display": "type",
+    "type": "ddl",
+    "value": "",
+    "name": "typeB2"
+  },
+  "desireB": {
+    "display": "desire",
+    "type": "text",
+    "value": "",
+    "name": "desireB"
+  },
+  "paramC1": {
+    "display": "first",
+    "type": "text",
+    "value": "",
+    "name": "paramC1"
+  },
+  "typeC1": {
+    "display": "type",
+    "type": "ddl",
+    "value": "",
+    "name": "typeC1"
+  },
+  "paramC2": {
+    "display": "second",
+    "type": "text",
+    "value": "",
+    "name": "paramC2"
+  },
+  "typeC2": {
+    "display": "type",
+    "type": "ddl",
+    "value": "",
+    "name": "typeC2"
+  },
+  "desireC": {
+    "display": "desire",
+    "type": "text",
+    "value": "",
+    "name": "desireC"
+  }
+}
