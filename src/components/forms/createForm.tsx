@@ -102,7 +102,7 @@ const CreateForm = () => {
 
     const outputStr: string = `\n\n//${desc}\n//You got ${parseSecondToMin(
       time
-    )} for complete this challenge \nfunction ${name}(${params}){\n\n}`;
+    )} for complete this challenge \nfunction ${name}(${params}) {\n\n}`;
     setIdeStr(outputStr);
   };
 
