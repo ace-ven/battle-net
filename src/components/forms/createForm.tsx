@@ -1,10 +1,11 @@
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { TextInput, DropInput, SwitchInput } from "../inputs/SwitchInput";
 import formSchema from "./newChallengeSchema.json";
 import "./forms.scss";
 import IDE from "../IDE/IDE";
 import RegularBtn from "../Buttons/Buttons";
 import { Resizable } from "re-resizable";
+import { parseSecondToMin } from "../../helpers/timer";
 
 type inputParams = {
   display: string;
@@ -15,25 +16,16 @@ type inputParams = {
 
 const CreateForm = () => {
   const [formState, setFormState] = useState({ ...formSchema });
-
+  const [ideStr, setIdeStr] = useState("");
   const handleChange = (event: any) => {
     const newState = { ...formState };
     (newState as any)[`${event.target.name}`].value = event.target.value;
     setFormState({ ...newState });
   };
 
-  const setParamGroupTitle = (index: number) => {
-    switch (index) {
-      case 0:
-        return "First";
-      case 1:
-        return "Second";
-      case 2:
-        return "Third";
-      default:
-        return "First";
-    }
-  };
+  useEffect(() => {
+    createIdeContent();
+  }, [formState]);
 
   const handleSwitch = (type: string, field: string) => {
     const current = (formState as any)[field] as inputParams;
@@ -100,6 +92,20 @@ const CreateForm = () => {
     });
   };
 
+  const createIdeContent = () => {
+    const {
+      challengeName: { value: name },
+      description: { value: desc },
+      duration: { value: time },
+      functionParams: { value: params },
+    } = formState;
+
+    const outputStr: string = `\n\n//${desc}\n//You got ${parseSecondToMin(
+      time
+    )} for complete this challenge \nfunction ${name}(${params}){\n\n}`;
+    setIdeStr(outputStr);
+  };
+
   const renderInputs = (fields: Array<String>) => {
     const currentState = formState as any;
 
@@ -131,7 +137,7 @@ const CreateForm = () => {
       );
     });
   };
-
+  console.log("form.state", formState);
   return (
     <form>
       <h2 style={{ fontFamily: "Baloo-bold" }}>Basic Information</h2>
@@ -155,7 +161,7 @@ const CreateForm = () => {
       <div id="code-section">
         <h2 style={{ fontFamily: "Baloo-bold" }}>You're Solution </h2>
         <div className="create-ide">
-          <IDE ideKind={"code"} />
+          <IDE ideKind={"code"} code={ideStr} />
           <div
             style={{
               position: "absolute",
