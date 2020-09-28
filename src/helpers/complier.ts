@@ -10,19 +10,13 @@ export const compile = (data: any, code: string) => {
       code as string
     );
     const answerGroup: Array<boolean> = [];
-    const result = {
+    const result: any = {
       charLength: code.trim().length,
-      correct: answerGroup.reduce((acc: boolean, curr: boolean) => {
-        if (acc && curr) {
-          acc = true;
-          return acc;
-        }
-        acc = false;
-        return acc;
-      }, true),
+      correct: true,
       errors: "",
       runTime: "0",
       codeSize: "",
+      testRes: [],
     };
 
     Object.keys(data.tests).forEach((key: any, index: number) => {
@@ -51,7 +45,16 @@ export const compile = (data: any, code: string) => {
         }
       }
     });
-    console.log(result);
+    result.correct = answerGroup.reduce((acc: boolean, curr: boolean) => {
+      console.log("acc && curr", !!acc && curr);
+      if (acc && curr) {
+        acc = true;
+        return acc;
+      }
+      acc = false;
+      return acc;
+    }, true);
+    result.testRes = answerGroup;
     return result;
   } catch (error) {
     console.log("error", error);

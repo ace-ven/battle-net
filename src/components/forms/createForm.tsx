@@ -8,6 +8,7 @@ import { Resizable } from "re-resizable";
 import { parseSecondToMin } from "../../helpers/timer";
 import { stripFunction } from "../../helpers/striper";
 import Worker from "../../workers";
+import TerminalIDE from "../IDE/Termial";
 
 type inputParams = {
   display: string;
@@ -21,6 +22,7 @@ const CreateForm = () => {
   const [ideStr, setIdeStr] = useState("");
   const [userCode, setUserCode] = useState("");
   const [tested, setTested] = useState(false);
+  const [testResults, setTestRResults] = useState(undefined);
 
   const handleChange = (event: any) => {
     const newState = { ...formState };
@@ -128,6 +130,8 @@ const CreateForm = () => {
       ...rest
     } = formState;
     const testResults = await worker.testUserCode(userCode, rest);
+    console.log("testResults", testResults);
+    setTestRResults(testResults);
     setTested(true);
   };
 
@@ -216,7 +220,7 @@ const CreateForm = () => {
                   right: 0,
                 }}
               >
-                <IDE ideKind={"terminal"} visible={tested} />
+                <IDE ideKind={"terminal"} visible={tested} code={testResults} />
               </Resizable>
             </div>
           </div>
