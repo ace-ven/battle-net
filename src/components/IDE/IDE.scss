@@ -5,7 +5,10 @@
 .ide-container {
   position: relative;
   height: 0;
-  transition: height 0.3s ease;
+  transition: height 0.7s ease;
+  &.hidden {
+    height: 0 !important;
+  }
   &.code {
     // position: absolute;
     right: 0;

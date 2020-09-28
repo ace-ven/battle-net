@@ -6,6 +6,8 @@ import IDE from "../IDE/IDE";
 import RegularBtn from "../Buttons/Buttons";
 import { Resizable } from "re-resizable";
 import { parseSecondToMin } from "../../helpers/timer";
+import { stripFunction } from "../../helpers/striper";
+import { appWorker } from "../..";
 
 type inputParams = {
   display: string;
@@ -17,12 +19,13 @@ type inputParams = {
 const CreateForm = () => {
   const [formState, setFormState] = useState({ ...formSchema });
   const [ideStr, setIdeStr] = useState("");
+  const [userCode, setUserCode] = useState("");
+  const [tested, setTested] = useState(false);
   const handleChange = (event: any) => {
     const newState = { ...formState };
     (newState as any)[`${event.target.name}`].value = event.target.value;
     setFormState({ ...newState });
   };
-
   useEffect(() => {
     createIdeContent();
   }, [formState]);
@@ -37,18 +40,18 @@ const CreateForm = () => {
     const testGroupParams = [
       "paramA1",
       "paramA2",
-      "desireA",
+      "paramA3",
       "paramB1",
       "paramB2",
-      "desireB",
+      "paramB3",
       "paramC1",
       "paramC2",
-      "desireC",
+      "paramC3",
     ];
     return testGroupParams.map((group) => {
-      const currentType = group.replace("param", "type");
+      const currentType = group.replace(/param/g, "type");
       return (
-        <div className="params-input">
+        <div className="params-input" key={currentType}>
           {renderInputs([group])}
           <div className="group-switch">
             <SwitchInput
@@ -106,6 +109,26 @@ const CreateForm = () => {
     setIdeStr(outputStr);
   };
 
+  const handleUserAnswer = (userCode: string) => {
+    const stripCode = stripFunction(userCode);
+    setIdeStr(userCode);
+    setUserCode(stripCode);
+  };
+
+  const handleSubmit = () => {};
+
+  const handleTestCode = async () => {
+    const {
+      challengeName,
+      duration,
+      description,
+      difficultly,
+      ...rest
+    } = formState;
+    const testResults = await appWorker.testUserCode(userCode, rest);
+    setTested(true);
+  };
+
   const renderInputs = (fields: Array<String>) => {
     const currentState = formState as any;
 
@@ -137,9 +160,8 @@ const CreateForm = () => {
       );
     });
   };
-  console.log("form.state", formState);
   return (
-    <form>
+    <div>
       <h2 style={{ fontFamily: "Baloo-bold" }}>Basic Information</h2>
       <div className="group">
         {renderInputs(["challengeName", "description"])}
@@ -161,7 +183,11 @@ const CreateForm = () => {
       <div id="code-section">
         <h2 style={{ fontFamily: "Baloo-bold" }}>You're Solution </h2>
         <div className="create-ide">
-          <IDE ideKind={"code"} code={ideStr} />
+          <IDE
+            ideKind={"code"}
+            code={ideStr}
+            updateUserCode={handleUserAnswer}
+          />
           <div
             style={{
               position: "absolute",
@@ -175,13 +201,13 @@ const CreateForm = () => {
               defaultSize={{ width: "100%", height: "100%" }}
               style={{
                 position: "absolute",
-                height: "200px",
+                height: !tested ? "0px" : "100px",
                 bottom: 0,
                 left: 0,
                 right: 0,
               }}
             >
-              <IDE ideKind={"terminal"} />
+              <IDE ideKind={"terminal"} visible={tested} />
             </Resizable>
           </div>
         </div>
@@ -190,7 +216,7 @@ const CreateForm = () => {
             <RegularBtn
               text={"Test Code"}
               rounded={true}
-              fn={() => {}}
+              fn={handleTestCode}
               color={"#ff5722"}
             />
             <RegularBtn
@@ -213,7 +239,7 @@ const CreateForm = () => {
           />
         </div>
       </div>
-    </form>
+    </div>
   );
 };
 

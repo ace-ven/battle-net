@@ -53,11 +53,17 @@
     "value": "",
     "name": "typeA2"
   },
-  "desireA": {
+  "paramA3": {
     "display": "desire",
     "type": "text",
     "value": "",
-    "name": "desireA"
+    "name": "paramA3"
+  },
+  "typeA3": {
+    "display": "desire",
+    "type": "text",
+    "value": "",
+    "name": "paramA3"
   },
   "paramB1": {
     "display": "first",
@@ -83,11 +89,17 @@
     "value": "",
     "name": "typeB2"
   },
-  "desireB": {
+  "paramB3": {
     "display": "desire",
     "type": "text",
     "value": "",
-    "name": "desireB"
+    "name": "paramB3"
+  },
+  "typeB3": {
+    "display": "desire",
+    "type": "text",
+    "value": "",
+    "name": "paramB3"
   },
   "paramC1": {
     "display": "first",
@@ -113,10 +125,16 @@
     "value": "",
     "name": "typeC2"
   },
-  "desireC": {
+  "paramC3": {
     "display": "desire",
     "type": "text",
     "value": "",
-    "name": "desireC"
+    "name": "paramC3"
+  },
+  "typeC3": {
+    "display": "desire",
+    "type": "text",
+    "value": "",
+    "name": "paramC3"
   }
 }
