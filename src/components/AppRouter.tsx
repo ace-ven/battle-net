@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Router,
   Route,
@@ -9,7 +9,7 @@ import { createBrowserHistory } from "history";
 import HomePage from "../pages/Home/Home";
 import AppHeader from "./Layout/AppHeader/AppHeader";
 import Create from "../pages/Create/Create";
-
+import Worker from "../workers";
 export const history = createBrowserHistory();
 
 const AppRouter: React.FC = () => {

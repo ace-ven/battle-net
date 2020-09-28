@@ -22,23 +22,23 @@ export const validateUserCode = (
     if (fullStr[index + 1] !== undefined) {
       return {
         status: false,
-        msg: "Keep your code inside the main function block"
+        msg: "Keep your code inside the main function block",
       };
     }
   }
   return {
     status: true,
-    msg: ""
+    msg: "",
   };
 };
 
 export const validateV2 = (userCode: String, intialCode: String) => {
   const codeStriped = stripFunction(userCode);
   const t = userCode.replace(codeStriped, "\n\n\n   ");
-  if (t == intialCode) {
+  if (t === intialCode) {
     return {
       status: true,
-      msg: ""
+      msg: "",
     };
   }
   return { status: false, msg: "You Can not change the main function props" };

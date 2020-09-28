@@ -7,7 +7,7 @@ import RegularBtn from "../Buttons/Buttons";
 import { Resizable } from "re-resizable";
 import { parseSecondToMin } from "../../helpers/timer";
 import { stripFunction } from "../../helpers/striper";
-import { appWorker } from "../..";
+import Worker from "../../workers";
 
 type inputParams = {
   display: string;
@@ -21,6 +21,7 @@ const CreateForm = () => {
   const [ideStr, setIdeStr] = useState("");
   const [userCode, setUserCode] = useState("");
   const [tested, setTested] = useState(false);
+
   const handleChange = (event: any) => {
     const newState = { ...formState };
     (newState as any)[`${event.target.name}`].value = event.target.value;
@@ -118,6 +119,7 @@ const CreateForm = () => {
   const handleSubmit = () => {};
 
   const handleTestCode = async () => {
+    const worker = new Worker();
     const {
       challengeName,
       duration,
@@ -125,7 +127,7 @@ const CreateForm = () => {
       difficultly,
       ...rest
     } = formState;
-    const testResults = await appWorker.testUserCode(userCode, rest);
+    const testResults = await worker.testUserCode(userCode, rest);
     setTested(true);
   };
 
@@ -163,82 +165,90 @@ const CreateForm = () => {
   return (
     <div>
       <h2 style={{ fontFamily: "Baloo-bold" }}>Basic Information</h2>
-      <div className="group">
-        {renderInputs(["challengeName", "description"])}
-      </div>
-      <div className="group">
-        {renderInputs(["difficultly", "duration", "functionParams"])}
-      </div>
-      <div style={{ marginTop: "75px" }}>
-        <h2 style={{ fontFamily: "Baloo-bold" }}>Test Cases</h2>
-        <div className="test-group-container">{renderTestGroups()}</div>
-      </div>
-      <div className="navigate-down">
-        <div className="continue-btn">
-          <label>continue</label>
-          <div className="line"></div>
-          <a href={"#code-section"}> </a>
+      <section>
+        <div className="group">
+          {renderInputs(["challengeName", "description"])}
         </div>
-      </div>
-      <div id="code-section">
-        <h2 style={{ fontFamily: "Baloo-bold" }}>You're Solution </h2>
-        <div className="create-ide">
-          <IDE
-            ideKind={"code"}
-            code={ideStr}
-            updateUserCode={handleUserAnswer}
-          />
-          <div
-            style={{
-              position: "absolute",
-              height: "200px",
-              bottom: 0,
-              left: 0,
-              right: 0,
-            }}
-          >
-            <Resizable
-              defaultSize={{ width: "100%", height: "100%" }}
+      </section>
+      <section>
+        <div className="group">
+          {renderInputs(["difficultly", "duration", "functionParams"])}
+        </div>
+      </section>
+      <section className="test-cases-section">
+        <div style={{ marginTop: "75px" }}>
+          <h2 style={{ fontFamily: "Baloo-bold" }}>Test Cases</h2>
+          <div className="test-group-container">{renderTestGroups()}</div>
+        </div>
+        <div className="navigate-down">
+          <div className="continue-btn">
+            <label>continue</label>
+            <div className="line"></div>
+            <a href={"#code-section"}> </a>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div id="code-section">
+          <h2 style={{ fontFamily: "Baloo-bold" }}>You're Solution </h2>
+          <div className="create-ide">
+            <IDE
+              ideKind={"code"}
+              code={ideStr}
+              updateUserCode={handleUserAnswer}
+            />
+            <div
               style={{
                 position: "absolute",
-                height: !tested ? "0px" : "100px",
+                height: "200px",
                 bottom: 0,
                 left: 0,
                 right: 0,
               }}
             >
-              <IDE ideKind={"terminal"} visible={tested} />
-            </Resizable>
+              <Resizable
+                defaultSize={{ width: "100%", height: "100%" }}
+                style={{
+                  position: "absolute",
+                  height: !tested ? "0px" : "100px",
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                }}
+              >
+                <IDE ideKind={"terminal"} visible={tested} />
+              </Resizable>
+            </div>
           </div>
-        </div>
-        <div className="ide-btn-action">
-          <div>
+          <div className="ide-btn-action">
+            <div>
+              <RegularBtn
+                text={"Test Code"}
+                rounded={true}
+                fn={handleTestCode}
+                color={"#ff5722"}
+              />
+              <RegularBtn
+                text={"Clear Code"}
+                rounded={true}
+                fn={() => {}}
+                color={"orange"}
+                borderColor={"orange"}
+                borderWidth={"2px"}
+              />
+            </div>
             <RegularBtn
-              text={"Test Code"}
-              rounded={true}
-              fn={handleTestCode}
-              color={"#ff5722"}
-            />
-            <RegularBtn
-              text={"Clear Code"}
+              text={"Submit"}
               rounded={true}
               fn={() => {}}
-              color={"orange"}
-              borderColor={"orange"}
-              borderWidth={"2px"}
+              color={"white"}
+              borderColor={"red"}
+              borderWidth={"0px"}
+              fill={"orange"}
             />
           </div>
-          <RegularBtn
-            text={"Submit"}
-            rounded={true}
-            fn={() => {}}
-            color={"white"}
-            borderColor={"red"}
-            borderWidth={"0px"}
-            fill={"orange"}
-          />
         </div>
-      </div>
+      </section>
     </div>
   );
 };

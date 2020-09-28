@@ -29,7 +29,6 @@ type AvatarDDLProps = {
 };
 
 const AvatarDDL = (props: AvatarDDLProps) => {
-  console.log("rp[", props);
   const elements: Array<any> = [
     { name: "Profile" },
     { name: "History" },
@@ -42,11 +41,18 @@ const AvatarDDL = (props: AvatarDDLProps) => {
   return (
     <div className="list">
       {elements.map((elem) => (
-        <div className="item" onClick={() => props.show(false)}>
-          <Link to={elem.name}>
-            <p>{elem.name}</p>
-            {elem.component ? elem.component : <React.Fragment />}
-          </Link>
+        <div className="item" onClick={() => props.show(false)} key={elem.name}>
+          {elem.component ? (
+            <a>
+              <p>{elem.name}</p>
+              {elem.component}
+            </a>
+          ) : (
+            <Link to={elem.name}>
+              <p>{elem.name}</p>
+              {elem.component ? elem.component : <React.Fragment />}
+            </Link>
+          )}
         </div>
       ))}
     </div>
