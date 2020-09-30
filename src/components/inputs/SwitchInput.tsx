@@ -19,10 +19,11 @@ export const TextInput = (props: TextInput) => {
     >
       <label>{props.label}</label>
       <input
-        type={props.type as string}
+        type={"text"}
         name={props.name}
         value={props.value}
         autoComplete="off"
+        pattern={props.type === "number" ? "[0-9.]+" : ""}
         onFocus={() => {
           setFocused(true);
         }}

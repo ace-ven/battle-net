@@ -20,6 +20,9 @@
     .ace_gutter-layer {
       background-color: #111318c2;
     }
+    .ace_gutter {
+      z-index: 0;
+    }
     .ace_active-line {
       background-color: transparent;
     }

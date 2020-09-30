@@ -11,6 +11,7 @@ type ButtonProps = {
   bold?: boolean;
   borderWidth?: string;
   fn(): any;
+  disabled?: boolean;
 };
 
 const RegularBtn = (props: ButtonProps) => {
@@ -18,6 +19,7 @@ const RegularBtn = (props: ButtonProps) => {
     text,
     fn,
     rounded = false,
+    disabled = false,
     fill,
     color,
     bold,
@@ -27,8 +29,9 @@ const RegularBtn = (props: ButtonProps) => {
   return (
     <button
       className={`${rounded ? "rounded" : ""}`}
+      disabled={disabled}
       style={{
-        backgroundColor: fill,
+        backgroundColor: disabled ? "#ffa50073" : fill,
         color: color,
         borderColor: borderColor,
         fontWeight: bold ? "bold" : 400,

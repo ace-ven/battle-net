@@ -84,7 +84,7 @@
   }
 }
 .test-cases-section {
-  height: 71vh;
+  height: calc(100vh - 360px);
   position: relative;
 
   .navigate-down {

@@ -21,8 +21,9 @@ const CreateForm = () => {
   const [formState, setFormState] = useState({ ...formSchema });
   const [ideStr, setIdeStr] = useState("");
   const [userCode, setUserCode] = useState("");
-  const [tested, setTested] = useState(false);
-  const [testResults, setTestRResults] = useState(undefined);
+  const [isChallengeValid, setChallengeValid] = useState(false);
+
+  const [testResults, setTestResults] = useState("");
 
   const handleChange = (event: any) => {
     const newState = { ...formState };
@@ -31,6 +32,7 @@ const CreateForm = () => {
   };
   useEffect(() => {
     createIdeContent();
+    setChallengeValid(false);
   }, [formState]);
 
   const handleSwitch = (type: string, field: string) => {
@@ -129,10 +131,28 @@ const CreateForm = () => {
       difficultly,
       ...rest
     } = formState;
-    const testResults = await worker.testUserCode(userCode, rest);
-    console.log("testResults", testResults);
-    setTestRResults(testResults);
-    setTested(true);
+    const testResults: any = await worker.testUserCode(userCode, rest);
+    // console.log("innn", formatTerminalCode(testResults) as any);
+    // console.log("testResults", testResults);
+    setChallengeValid(testResults.correct);
+    setTestResults(formatTerminalCode(testResults) as any);
+  };
+
+  const formatTerminalCode = (data: any) => {
+    console.log("data --", data);
+    const output = data
+      ? `\n you're code results: \n
+    code length: ${data.charLength}, \n
+    run time duration: ${data.runTime},\n
+    code size: ${data.codeSize},\n
+    errors: ${data.errors ? data.errors : "No run time errors"},\n
+    finale results:${
+      data.correct
+        ? "You got it right"
+        : "Failed, try to insert a correct answer for your new challenge"
+    }`
+      : "";
+    return output;
   };
 
   const renderInputs = (fields: Array<String>) => {
@@ -166,6 +186,7 @@ const CreateForm = () => {
       );
     });
   };
+
   return (
     <div>
       <h2 style={{ fontFamily: "Baloo-bold" }}>Basic Information</h2>
@@ -214,13 +235,13 @@ const CreateForm = () => {
                 defaultSize={{ width: "100%", height: "100%" }}
                 style={{
                   position: "absolute",
-                  height: !tested ? "0px" : "100px",
+                  height: "100px",
                   bottom: 0,
                   left: 0,
                   right: 0,
                 }}
               >
-                <IDE ideKind={"terminal"} visible={tested} code={testResults} />
+                <IDE ideKind={"terminal"} visible={true} code={testResults} />
               </Resizable>
             </div>
           </div>
@@ -244,6 +265,7 @@ const CreateForm = () => {
             <RegularBtn
               text={"Submit"}
               rounded={true}
+              disabled={!isChallengeValid}
               fn={() => {}}
               color={"white"}
               borderColor={"red"}

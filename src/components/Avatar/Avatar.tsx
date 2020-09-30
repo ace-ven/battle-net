@@ -34,7 +34,13 @@ const AvatarDDL = (props: AvatarDDLProps) => {
     { name: "History" },
     {
       name: "Dark Mode",
-      component: <SwitchInput active={props.isDarkMode} onSwitch={props.fn} />,
+      component: (
+        <SwitchInput
+          active={props.isDarkMode}
+          onSwitch={props.fn}
+          bgColor={"dark"}
+        />
+      ),
     },
     { name: "Log out" },
   ];

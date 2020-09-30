@@ -45,16 +45,10 @@ export const compile = (data: any, code: string) => {
         }
       }
     });
-    result.correct = answerGroup.reduce((acc: boolean, curr: boolean) => {
-      console.log("acc && curr", !!acc && curr);
-      if (acc && curr) {
-        acc = true;
-        return acc;
-      }
-      acc = false;
-      return acc;
-    }, true);
+    console.log("answerGroup", answerGroup);
+    result.correct = !answerGroup.filter((a) => a === false).length;
     result.testRes = answerGroup;
+    console.log("result", result);
     return result;
   } catch (error) {
     console.log("error", error);

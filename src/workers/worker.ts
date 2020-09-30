@@ -14,7 +14,7 @@ export const testUserCode = (userSolution: string, challengeData: any) => {
   const tests = createTestGroupArray(testCases);
   const results = compile({ params, tests }, userSolution);
 
-  console.log(tests);
+  return results;
 };
 
 const createTestGroupArray = (tests: any) => {
