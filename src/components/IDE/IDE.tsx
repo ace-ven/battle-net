@@ -31,7 +31,7 @@ const IDE = (props: any) => {
           enableLiveAutocompletion: true,
         }}
         // defaultValue={props.code}
-        fontSize={14}
+        fontSize={props.fontSize || 14}
         showPrintMargin={true}
         showGutter={true}
         highlightActiveLine={true}

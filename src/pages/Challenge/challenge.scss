@@ -1,19 +1,93 @@
 .challenge-container {
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  top: 65px;
+  bottom: 0;
+  left: 0;
+  right: 0;
   .left {
+    // position: relative;
     position: absolute;
     left: 0;
-    height: 100%;
+    height: 100vh;
     width: 50%;
     bottom: 0;
     top: 0;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
   }
 
   .right {
+    // position: relative;
     position: absolute;
     right: 0;
-    height: 100%;
+    height: 100vh;
     width: 50%;
     bottom: 0;
     top: 0;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+  .editor-bottom {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    &.iframe {
+      // z-index: -1;
+    }
+    label {
+      position: absolute;
+      top: 0;
+      right: 10px;
+      padding: 11px;
+      background-color: #56545459;
+      border-radius: 5px;
+      font-size: 13px;
+      color: orange;
+      font-weight: 500;
+    }
+  }
+  .editor-top {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    label {
+      position: absolute;
+      top: 0;
+      right: 10px;
+      padding: 11px;
+      background-color: #56545459;
+      border-radius: 5px;
+      font-size: 13px;
+      color: orange;
+      font-weight: 500;
+    }
+  }
+
+  .divider {
+    position: absolute;
+    height: 100vh !important;
+    width: 2px;
+    background-color: #9e9e9e29;
+    cursor: move;
+    z-index: 10;
+  }
+
+  .dividerY {
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background-color: #9e9e9e29;
+    cursor: move;
+    z-index: 10;
+    top: 50%;
+  }
+
+  #iframe {
+    height: 100%;
+    width: 100%;
   }
 }
