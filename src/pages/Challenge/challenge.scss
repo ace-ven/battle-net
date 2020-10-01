@@ -1,0 +1,19 @@
+.challenge-container {
+  .left {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 50%;
+    bottom: 0;
+    top: 0;
+  }
+
+  .right {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 50%;
+    bottom: 0;
+    top: 0;
+  }
+}

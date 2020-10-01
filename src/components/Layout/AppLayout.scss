@@ -132,6 +132,14 @@ html {
     right: 0;
     bottom: 0;
   }
+
+  .editor {
+    position: absolute;
+    top: 64px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
   @media screen and (max-width: 1025px) {
     .layout {
       width: 70vh;

@@ -19,6 +19,7 @@ const AppHeader = (props: any) => {
           <div className="app-header-navigation">
             <Link to="/create">Create</Link>
             <Link to="/news">News</Link>
+            <Link to="/challenge">Challenge</Link>
           </div>
         </div>
         <div className="app-header-action right">

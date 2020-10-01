@@ -21,7 +21,7 @@ const IDE = (props: any) => {
       } `}
     >
       <AceEditor
-        mode="javascript"
+        mode={props.mode || "javascript"}
         theme="monokai"
         onChange={(e) => props.updateUserCode(e)}
         name="UNIQUE_ID_OF_DIV"
@@ -46,7 +46,7 @@ const IDE = (props: any) => {
           tabSize: 2,
         }}
         style={{
-          backgroundColor: "#0000001a",
+          backgroundColor: props.bgColor || "#0000001a",
           width: "100%",
           height: "100%",
         }}
