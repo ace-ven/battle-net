@@ -1,8 +1,10 @@
 import { Resizable } from "re-resizable";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FileBrowse from "../../components/FileBrowse/FileBrowse";
 import IDE from "../../components/IDE/IDE";
+import { Node, Tree } from "../../helpers/tree";
 import "./challenge.scss";
+import { v4 as uuidv4 } from "uuid";
 
 const Challenge = () => {
   const [htmlStr, setHtmlStr] = useState("");
@@ -11,6 +13,12 @@ const Challenge = () => {
   const [x, setX] = useState(0);
   const [yRight, setYRight] = useState(0);
   const [yLeft, setYLeft] = useState(0);
+  const [fileStructure, setFileStructure] = useState([] as any);
+  const [tree, setTree] = useState(new Tree(""));
+
+  useEffect(() => {
+    setFileStructure([tree.renderMapObj()]);
+  }, []);
 
   const renderResults = () => {
     const html = `${htmlStr} <script type="text/babel">${jsStr}</script> <style>${css}</style>`;
@@ -136,6 +144,7 @@ const Challenge = () => {
       document.onmousemove = null;
     }
   };
+
   setTimeout(() => {
     detectedDrag(document.getElementById("divider") as any);
     detectedDragYLeft(document.getElementById("dividerYLeft") as any);
@@ -144,12 +153,26 @@ const Challenge = () => {
 
   setTimeout(() => {}, 1000);
 
-  console.log(yRight);
+  const updateEditorViews = (id: string) => {
+    console.log("id", id);
+  };
+
+  const addNewFile = (id: string, type = "file") => {
+    console.log(id);
+    tree.addingNodeById(id, uuidv4(), "new file", "sdfkhsndfks", type);
+    setFileStructure([tree.renderMapObj()]);
+  };
+  console.log("fileStructure", fileStructure);
 
   return (
     <>
       <div className="file-browse">
-        <FileBrowse tree={[]} />
+        <FileBrowse
+          tree={[]}
+          files={fileStructure}
+          updateEditorViews={updateEditorViews}
+          add={addNewFile}
+        />
       </div>
       <div className="challenge-container" style={{ left: "150px" }}>
         <div className="left" style={{ width: x ? `${x - 150}px` : "" }}>
