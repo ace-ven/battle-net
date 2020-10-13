@@ -1,5 +1,6 @@
 import { Resizable } from "re-resizable";
 import React, { useState } from "react";
+import FileBrowse from "../../components/FileBrowse/FileBrowse";
 import IDE from "../../components/IDE/IDE";
 import "./challenge.scss";
 
@@ -51,6 +52,7 @@ const Challenge = () => {
       pos1 = pos3 - e.clientX;
       pos3 = e.clientX;
       elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
+      console.log("elmnt.style.left", elmnt.style.left);
       setX(e.clientX);
     }
     function closeDragElement() {
@@ -145,61 +147,72 @@ const Challenge = () => {
   console.log(yRight);
 
   return (
-    <div className="challenge-container">
-      <div className="left" style={{ width: x ? `${x}px` : "" }}>
-        <div className="editor-top" style={{ height: yLeft ? `${yLeft}` : "" }}>
-          <IDE
-            ideKind={"code"}
-            visible={true}
-            updateUserCode={setJsStr}
-            bgColor={"#1f2227"}
-            fontSize="10px"
-          />
-          <label>JS</label>
-        </div>
-        <div
-          className="dividerY"
-          id="dividerYLeft"
-          onClick={detectedDrag}
-        ></div>
-        <div className="editor-bottom">
-          <IDE
-            ideKind={"code"}
-            visible={true}
-            updateUserCode={setCssStr}
-            bgColor={"#1f2227"}
-            mode={"css"}
-            fontSize="10px"
-          />
-          <label>CSS</label>
-        </div>
+    <>
+      <div className="file-browse">
+        <FileBrowse tree={[]} />
       </div>
-      <div className="divider" id="divider" onClick={detectedDrag}></div>
-      <div className="right" style={{ width: x ? `calc(100% - ${x}px)` : "" }}>
+      <div className="challenge-container" style={{ left: "150px" }}>
+        <div className="left" style={{ width: x ? `${x - 150}px` : "" }}>
+          <div
+            className="editor-top"
+            style={{ height: yLeft ? `${yLeft}` : "" }}
+          >
+            <IDE
+              ideKind={"code"}
+              visible={true}
+              updateUserCode={setJsStr}
+              bgColor={"#1f2227"}
+              fontSize="10px"
+            />
+            <label>JS</label>
+          </div>
+          <div
+            className="dividerY"
+            id="dividerYLeft"
+            onClick={detectedDrag}
+          ></div>
+          <div className="editor-bottom">
+            <IDE
+              ideKind={"code"}
+              visible={true}
+              updateUserCode={setCssStr}
+              bgColor={"#1f2227"}
+              mode={"css"}
+              fontSize="10px"
+            />
+            <label>CSS</label>
+          </div>
+        </div>
+        <div className="divider" id="divider" onClick={detectedDrag}></div>
         <div
-          className="editor-top"
-          style={{ height: yRight ? `${yRight}` : "" }}
+          className="right"
+          style={{ width: x ? `calc(100% - (${x}px - 150px)` : "" }}
         >
-          <IDE
-            ideKind={"code"}
-            visible={true}
-            updateUserCode={setHtmlStr}
-            bgColor={"#1f2227"}
-            mode={"html"}
-            fontSize="10px"
-          />
-          <label>HTML</label>
-        </div>
-        <div
-          className="dividerY"
-          id="dividerYRight"
-          onClick={detectedDrag}
-        ></div>
-        <div className="editor-bottom iframe" id={"iframeContainer"}>
-          <iframe id={"iframe"}></iframe>
+          <div
+            className="editor-top"
+            style={{ height: yRight ? `${yRight}` : "" }}
+          >
+            <IDE
+              ideKind={"code"}
+              visible={true}
+              updateUserCode={setHtmlStr}
+              bgColor={"#1f2227"}
+              mode={"html"}
+              fontSize="10px"
+            />
+            <label>HTML</label>
+          </div>
+          <div
+            className="dividerY"
+            id="dividerYRight"
+            onClick={detectedDrag}
+          ></div>
+          <div className="editor-bottom iframe" id={"iframeContainer"}>
+            <iframe id={"iframe"}></iframe>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

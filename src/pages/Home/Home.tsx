@@ -1,12 +1,18 @@
 import React from "react";
 import "./Home.scss";
-const HomePage: React.FC = () => {
+import { read, write } from "./test";
+
+const HomePage: any = () => {
   if (window.Worker) {
     const myWorker = new Worker("../../../worker.js");
     setTimeout(() => {
       myWorker.postMessage("test");
       console.log("Message posted to worker");
     }, 2000);
+
+    // write().then((data) => {
+    //   read().then((d) => console.log(d));
+    // });
 
     // worker.onchange = function () {
     //   myWorker.postMessage([first.value, second.value]);

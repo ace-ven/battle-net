@@ -1,3 +1,35 @@
+.file-browse {
+  position: absolute;
+  height: 100%;
+  width: 150px;
+  background-color: black;
+  z-index: 10;
+  color: white;
+  li {
+    position: relative;
+    // height: 50px;
+    margin: 5px 0px;
+    li {
+      position: relative;
+      left: 10px;
+    }
+  }
+  span {
+    height: 20px;
+    width: 20px;
+    background-size: cover;
+    position: absolute;
+    left: -25px;
+    &.file {
+      background-image: url("../../assets//images//js.png");
+    }
+
+    &.folder {
+      background-image: url("../../assets//images/folder.png");
+    }
+  }
+}
+
 .challenge-container {
   display: flex;
   justify-content: space-around;
