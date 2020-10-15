@@ -31,10 +31,8 @@ class Node {
 
 class Tree {
   root: any;
-  finleResults: string;
   constructor(data: string) {
     this.root = new Node(uuidv4(), "My Project", "", "folder", "js");
-    this.finleResults = "";
   }
   traverseBF() {
     const arr = [this.root];
@@ -63,7 +61,6 @@ class Tree {
   }
 
   renderMapObj() {
-    console.log("this.root", this.root);
     return JSON.parse(JSON.stringify(this.root));
   }
 
@@ -78,7 +75,6 @@ class Tree {
     let found = false;
     if (!id) {
       const node: any = arr.shift();
-      console.log("innnnnn", node);
       node.add(newId || "82398123" + Math.random(), name, data, type);
     }
     while (arr.length || found) {
@@ -93,14 +89,5 @@ class Tree {
     }
   }
 }
-
-// const n1 = new Node(
-//   "234j-23481-sdjs1",
-//   "index.js",
-//   'function main (){console.log("starting")} main()'
-// );
-
-// const tree = new Tree();
-// tree.root = n1;
 
 export { Tree, Node };

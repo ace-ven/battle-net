@@ -121,8 +121,8 @@ const ListElement = (props: any) => {
           elemType={element.type}
         />
         <span className={`${element.type === "file" ? "file" : "folder"}`} />
-
-        <input type={"text"} value={name || element.name} />
+        {name || element.name}
+        {/* <input type={"text"} value={name || element.name} /> */}
       </div>
       <div
         className="list"
