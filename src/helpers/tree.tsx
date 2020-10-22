@@ -11,8 +11,8 @@ class Node {
     id: string,
     name: string = "",
     data = "",
-    type = "file",
-    lang = "js"
+    type = "folder",
+    lang = ""
   ) {
     this.id = id || uuidv4();
     this.data = data;
@@ -21,8 +21,16 @@ class Node {
     this.lang = lang;
     this.children = [];
   }
-  add(id: string, name: string, data: string, type: string) {
-    this.children.push(new Node(id, name, data, type));
+  add(id: string, name: string, data: string, type: string, lang: string) {
+    this.children.push(
+      new Node(
+        id,
+        `${name}${type !== "folder" ? `.${lang}` : ""}`,
+        data,
+        type,
+        lang
+      )
+    );
   }
   remove(id: string) {
     this.children = this.children.filter((e) => e.id !== id);
@@ -32,7 +40,7 @@ class Node {
 class Tree {
   root: any;
   constructor(data: string) {
-    this.root = new Node(uuidv4(), "My Project", "", "folder", "js");
+    this.root = new Node(uuidv4(), "My Project", "", "folder");
   }
   traverseBF() {
     const arr = [this.root];
@@ -69,19 +77,55 @@ class Tree {
     newId: string,
     name: string,
     data: string,
-    type: string
+    type: string,
+    lang: string
   ) {
+    console.log("lang,", lang);
     const arr = [this.root];
     let found = false;
     if (!id) {
       const node: any = arr.shift();
-      node.add(newId || "82398123" + Math.random(), name, data, type);
+      node.add(newId || "82398123" + Math.random(), name, data, type, lang);
     }
     while (arr.length || found) {
       const node: any = arr.shift();
       if (id && node.id == id) {
         found = true;
-        node.add(newId || "82398123" + Math.random(), name, data, type);
+        node.add(newId || "82398123" + Math.random(), name, data, type, lang);
+        return;
+      } else {
+        arr.push(...node.children);
+      }
+    }
+  }
+
+  updateNodeName(id: string, name: string, lang: string) {
+    console.log("lang,", lang);
+    const arr = [this.root];
+    let found = false;
+
+    while (arr.length || found) {
+      const node: any = arr.shift();
+      if (id && node.id == id) {
+        found = true;
+        node.name = name;
+        node.lang = lang;
+        return;
+      } else {
+        arr.push(...node.children);
+      }
+    }
+  }
+
+  updateNodeContent(id: string, data: string) {
+    const arr = [this.root];
+    let found = false;
+
+    while (arr.length || found) {
+      const node: any = arr.shift();
+      if (id && node.id == id) {
+        found = true;
+        node.data = data;
         return;
       } else {
         arr.push(...node.children);

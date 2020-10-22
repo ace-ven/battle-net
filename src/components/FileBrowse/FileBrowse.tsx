@@ -4,68 +4,12 @@ import "./styles.scss";
 type FileBrowseProps = {
   tree: any;
   updateEditorViews: any;
+  handleFileUpdate: any;
   files: Array<any>;
   add: any;
 };
 
 const FileBrowse = (props: FileBrowseProps) => {
-  const files = [
-    {
-      name: "index.js",
-      data: "const a = 10",
-      id: "1",
-      type: "file",
-      root: true,
-      children: [],
-    },
-    {
-      name: "src",
-      data: "",
-      id: "2",
-      type: "folder",
-      root: true,
-      children: [
-        {
-          name: "index.js",
-          data: "const a = 10",
-          id: "3",
-          type: "file",
-          children: [],
-        },
-        {
-          name: "index2.js",
-          data: "const a = 10",
-          id: "4",
-          type: "folder",
-          children: [
-            {
-              name: "index22.js",
-              data: "const a = 10",
-              id: "5",
-              type: "file",
-              children: [],
-            },
-            {
-              name: "index11.js",
-              data: "const a = 10",
-              id: "6",
-              type: "folder",
-              children: [
-                {
-                  name: "index33.js",
-                  data: "const a = 10",
-                  id: "7",
-                  type: "file",
-                  children: [],
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-  ];
-
   const renderFileList = (element: any) => {
     const output = [];
     output.push(
@@ -73,8 +17,8 @@ const FileBrowse = (props: FileBrowseProps) => {
         element={element}
         updateEditorViews={props.updateEditorViews}
         renderFileList={renderFileList}
-        dc
         onAdd={props.add}
+        handleFileUpdate={props.handleFileUpdate}
       />
     );
 
@@ -94,9 +38,7 @@ const FileBrowse = (props: FileBrowseProps) => {
             })}
         <FileToolbar
           updateEditorViews={props.updateEditorViews}
-          //   elemId={element.id}
           onAdd={props.add}
-          //   elemType={element.type}
         />
       </ul>
     </div>
@@ -108,10 +50,31 @@ export default FileBrowse;
 const ListElement = (props: any) => {
   const [collapse, setCollapse] = useState(true);
   const { element, renderFileList, root } = props;
-  const { name, setName } = useState("") as any;
+  const [name, setName] = useState("") as any;
+  const [isRename, setRename] = useState(false) as any;
   if (!element || (Array.isArray(element) && element.length === 0)) {
     return <React.Fragment />;
   }
+  const detectedLang = (name: string) => {
+    const langList: any = { pg: {}, js: {}, css: {}, html: {} };
+    const parts = name.split(".");
+    return (
+      (langList[parts[parts.length - 1]] && parts[parts.length - 1]) || "txt"
+    );
+  };
+
+  const handleFileNameChanged = () => {
+    setRename(false);
+    props.handleFileUpdate(props.element.id, name, detectedLang(name));
+  };
+
+  const handleKeyPress = (e: any) => {
+    if (e.keyCode === 13) {
+      e.target.blur();
+      //Write you validation logic here
+    }
+  };
+
   return (
     <li className="file-data-element">
       <FileToolbar
@@ -120,10 +83,24 @@ const ListElement = (props: any) => {
         onAdd={props.onAdd}
         elemType={element.type}
         setCollapse={setCollapse}
+        setRename={setRename}
       />
       <div onClick={() => setCollapse(!collapse)} className="list-text-img">
-        <span className={`${element.type === "file" ? "file" : "folder"}`} />
-        {name || element.name}
+        <span
+          className={`${
+            element.type === "file" ? "file" : "folder"
+          } ${detectedLang(name || element.name)}`}
+        />
+        {isRename ? (
+          <input
+            onChange={(e) => setName(e.target.value)}
+            value={name || element.name}
+            onBlur={handleFileNameChanged}
+            onKeyDown={(e) => handleKeyPress(e)}
+          />
+        ) : (
+          name || element.name
+        )}
       </div>
       <div
         className="list"
@@ -142,10 +119,14 @@ const ListElement = (props: any) => {
 const FileToolbar: any = (props: any) => {
   const [visible, setVisible] = useState(false);
 
-  const handleFileAction = (type?: string | undefined) => {
+  const handleFileAction = (
+    type?: string | undefined,
+    lang?: string | undefined
+  ) => {
     setVisible(false);
     props.setCollapse(false);
-    props.onAdd(props.elemId, type);
+    console.log("lang", lang);
+    props.onAdd(props.elemId, type, lang);
   };
   return (
     <div
@@ -165,14 +146,30 @@ const FileToolbar: any = (props: any) => {
         <ul>
           {props.elemType !== "file" ? (
             <React.Fragment>
-              <li onClick={() => handleFileAction()}>Add new File</li>
+              <li onClick={() => handleFileAction(undefined, "js")}>
+                Add new JS File
+              </li>
+              <li onClick={() => handleFileAction(undefined, "html")}>
+                Add new HTML File
+              </li>
+              <li onClick={() => handleFileAction(undefined, "css")}>
+                Add new CSS File
+              </li>
+
               <li onClick={() => handleFileAction("folder")}>Add new Folder</li>
             </React.Fragment>
           ) : (
             <React.Fragment />
           )}
 
-          <li>Rename</li>
+          <li
+            onClick={() => {
+              setVisible(false);
+              props.setRename(true);
+            }}
+          >
+            Rename
+          </li>
           <li>Delete</li>
         </ul>
       ) : (

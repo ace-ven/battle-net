@@ -25,7 +25,21 @@
     position: absolute;
     left: -25px;
     &.file {
-      background-image: url("../../assets//images//js.png");
+      &.js {
+        background-image: url("../../assets//images//js.png");
+      }
+      &.html {
+        background-image: url("../../assets//images//html.png");
+      }
+      &.css {
+        background-image: url("../../assets//images//css.png");
+      }
+      &.py {
+        background-image: url("../../assets//images//python.png");
+      }
+      &.txt {
+        background-image: url("../../assets//images//txt.png");
+      }
     }
 
     &.folder {

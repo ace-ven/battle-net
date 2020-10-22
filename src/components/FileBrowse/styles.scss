@@ -3,38 +3,40 @@
   height: 1px;
   width: 100%;
   outline: none;
-  z-index: -1;
 
-  //   div {
-  //     color: white;
   ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    font-size: 14px;
+    font-size: 11px;
     background-color: black;
     border: 1px solid gray;
     z-index: 2;
     position: relative;
+    left: -15px;
     li {
       cursor: pointer;
       padding: 5px;
     }
   }
-  //   }
   &.visible {
     z-index: 2;
     height: 100%;
-    width: 85%;
+    width: 100%;
   }
 }
 .list-text-img {
   width: 100%;
   cursor: pointer;
   position: relative;
-  z-index: 8;
 }
 .file-data-element {
+  input {
+    z-index: 100;
+    background-color: transparent;
+    color: white;
+    outline: none;
+  }
   &:hover {
     .toolbar-container {
       z-index: 9;

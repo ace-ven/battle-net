@@ -157,9 +157,12 @@ const Challenge = () => {
     console.log("id", id);
   };
 
-  const addNewFile = (id: string, type = "file") => {
-    console.log(id);
-    tree.addingNodeById(id, uuidv4(), "new file", "sdfkhsndfks", type);
+  const handleFileUpdate = (id: string, name: string, lang: string) => {
+    tree.updateNodeName(id, name, lang);
+  };
+
+  const addNewFile = (id: string, type = "file", lang: string) => {
+    tree.addingNodeById(id, uuidv4(), "new file", "sdfkhsndfks", type, lang);
     setFileStructure([tree.renderMapObj()]);
   };
   console.log("fileStructure", fileStructure);
@@ -172,6 +175,7 @@ const Challenge = () => {
           files={fileStructure}
           updateEditorViews={updateEditorViews}
           add={addNewFile}
+          handleFileUpdate={handleFileUpdate}
         />
       </div>
       <div className="challenge-container" style={{ left: "150px" }}>
