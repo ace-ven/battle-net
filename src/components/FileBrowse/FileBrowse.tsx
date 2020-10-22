@@ -73,6 +73,7 @@ const FileBrowse = (props: FileBrowseProps) => {
         element={element}
         updateEditorViews={props.updateEditorViews}
         renderFileList={renderFileList}
+        dc
         onAdd={props.add}
       />
     );
@@ -112,17 +113,17 @@ const ListElement = (props: any) => {
     return <React.Fragment />;
   }
   return (
-    <li>
+    <li className="file-data-element">
+      <FileToolbar
+        updateEditorViews={props.updateEditorViews}
+        elemId={element.id}
+        onAdd={props.onAdd}
+        elemType={element.type}
+        setCollapse={setCollapse}
+      />
       <div onClick={() => setCollapse(!collapse)} className="list-text-img">
-        <FileToolbar
-          updateEditorViews={props.updateEditorViews}
-          elemId={element.id}
-          onAdd={props.onAdd}
-          elemType={element.type}
-        />
         <span className={`${element.type === "file" ? "file" : "folder"}`} />
         {name || element.name}
-        {/* <input type={"text"} value={name || element.name} /> */}
       </div>
       <div
         className="list"
@@ -140,6 +141,12 @@ const ListElement = (props: any) => {
 
 const FileToolbar: any = (props: any) => {
   const [visible, setVisible] = useState(false);
+
+  const handleFileAction = (type?: string | undefined) => {
+    setVisible(false);
+    props.setCollapse(false);
+    props.onAdd(props.elemId, type);
+  };
   return (
     <div
       className={`toolbar-container ${visible ? "visible" : ""}`}
@@ -148,7 +155,7 @@ const FileToolbar: any = (props: any) => {
         setVisible(true);
       }}
       onBlur={() => setVisible(false)}
-      tabIndex={1}
+      tabIndex={12}
       onClick={() => {
         console.log("click");
         props.updateEditorViews(props.elemId);
@@ -158,10 +165,8 @@ const FileToolbar: any = (props: any) => {
         <ul>
           {props.elemType !== "file" ? (
             <React.Fragment>
-              <li onClick={() => props.onAdd(props.elemId)}>Add new File</li>
-              <li onClick={() => props.onAdd(props.elemId, "folder")}>
-                Add new Folder
-              </li>
+              <li onClick={() => handleFileAction()}>Add new File</li>
+              <li onClick={() => handleFileAction("folder")}>Add new Folder</li>
             </React.Fragment>
           ) : (
             <React.Fragment />

@@ -3,7 +3,7 @@
   height: 100%;
   width: 85%;
   outline: none;
-  z-index: 1;
+  z-index: -1;
 
   //   div {
   //     color: white;
@@ -29,4 +29,11 @@
 .list-text-img {
   width: 100%;
   cursor: pointer;
+}
+.file-data-element {
+  &:hover {
+    .toolbar-container {
+      z-index: 1;
+    }
+  }
 }
