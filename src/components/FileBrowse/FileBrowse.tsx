@@ -5,6 +5,7 @@ type FileBrowseProps = {
   tree: any;
   updateEditorViews: any;
   handleFileUpdate: any;
+  updateEditorView: any;
   files: Array<any>;
   add: any;
 };
@@ -71,7 +72,6 @@ const ListElement = (props: any) => {
   const handleKeyPress = (e: any) => {
     if (e.keyCode === 13) {
       e.target.blur();
-      //Write you validation logic here
     }
   };
 
@@ -85,7 +85,13 @@ const ListElement = (props: any) => {
         setCollapse={setCollapse}
         setRename={setRename}
       />
-      <div onClick={() => setCollapse(!collapse)} className="list-text-img">
+      <div
+        onClick={() => {
+          console.log();
+          setCollapse(!collapse);
+        }}
+        className="list-text-img"
+      >
         <span
           className={`${
             element.type === "file" ? "file" : "folder"

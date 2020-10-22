@@ -15,6 +15,9 @@ const Challenge = () => {
   const [yLeft, setYLeft] = useState(0);
   const [fileStructure, setFileStructure] = useState([] as any);
   const [tree, setTree] = useState(new Tree(""));
+  const [logicCode, setLogicCode] = useState(undefined) as any;
+  const [cssCode, setCSSCode] = useState(undefined) as any;
+  const [htmlCode, setHtmlCode] = useState(undefined) as any;
 
   useEffect(() => {
     setFileStructure([tree.renderMapObj()]);
@@ -154,7 +157,27 @@ const Challenge = () => {
   setTimeout(() => {}, 1000);
 
   const updateEditorViews = (id: string) => {
-    console.log("id", id);
+    const node = tree.getNodeById(id);
+    if (node) {
+      console.log("ssss", node);
+      if (node.lang === "html") {
+        setHtmlCode(node);
+        return;
+      }
+      if (node.lang === "css") {
+        setCSSCode(node);
+        return;
+      }
+
+      if (node.lang === "js") {
+        setLogicCode(node);
+        return;
+      } else {
+        setLogicCode(node);
+      }
+      return;
+    }
+    return;
   };
 
   const handleFileUpdate = (id: string, name: string, lang: string) => {
@@ -162,10 +185,31 @@ const Challenge = () => {
   };
 
   const addNewFile = (id: string, type = "file", lang: string) => {
+    console.log("name lang", lang);
     tree.addingNodeById(id, uuidv4(), "new file", "sdfkhsndfks", type, lang);
     setFileStructure([tree.renderMapObj()]);
   };
-  console.log("fileStructure", fileStructure);
+
+  const updateEditorView = (id: string) => {
+    // const node = tree.getNodeById(id);
+    // if (node.lang === "html") {
+    //   setHtmlCode(node.data);
+    // }
+    // if (node.lang === "css") {
+    //   setCSSCode(node.data);
+    // }
+    // if (node.lang === "js") {
+    //   setLogicCode(node.data);
+    // }
+    // setLogicCode(node.data);
+    // return;
+  };
+
+  const updateFileContent = (element: any, content: string, fuc: any) => {
+    console.log("sdfsdfsd---", element);
+    const newNode = tree.updateNodeContent(element.id, content);
+    fuc(newNode);
+  };
 
   return (
     <>
@@ -176,6 +220,7 @@ const Challenge = () => {
           updateEditorViews={updateEditorViews}
           add={addNewFile}
           handleFileUpdate={handleFileUpdate}
+          updateEditorView={updateEditorView}
         />
       </div>
       <div className="challenge-container" style={{ left: "150px" }}>
@@ -187,9 +232,12 @@ const Challenge = () => {
             <IDE
               ideKind={"code"}
               visible={true}
-              updateUserCode={setJsStr}
               bgColor={"#1f2227"}
               fontSize="10px"
+              code={(logicCode && logicCode.data) || ""}
+              updateUserCode={(e: any) =>
+                updateFileContent(logicCode, e, setJsStr)
+              }
             />
             <label>JS</label>
           </div>
@@ -202,10 +250,13 @@ const Challenge = () => {
             <IDE
               ideKind={"code"}
               visible={true}
-              updateUserCode={setCssStr}
+              updateUserCode={(e: any) =>
+                updateFileContent(cssCode, e, setCSSCode)
+              }
               bgColor={"#1f2227"}
               mode={"css"}
               fontSize="10px"
+              code={(cssCode && cssCode.data) || ""}
             />
             <label>CSS</label>
           </div>
@@ -222,10 +273,13 @@ const Challenge = () => {
             <IDE
               ideKind={"code"}
               visible={true}
-              updateUserCode={setHtmlStr}
+              updateUserCode={(e: any) =>
+                updateFileContent(htmlCode, e, setHtmlCode)
+              }
               bgColor={"#1f2227"}
               mode={"html"}
               fontSize="10px"
+              code={(htmlCode && htmlCode.data) || ""}
             />
             <label>HTML</label>
           </div>

@@ -126,7 +126,22 @@ class Tree {
       if (id && node.id == id) {
         found = true;
         node.data = data;
-        return;
+        return node;
+      } else {
+        arr.push(...node.children);
+      }
+    }
+  }
+
+  getNodeById(id: string) {
+    const arr = [this.root];
+    let found = false;
+
+    while (arr.length || found) {
+      const node: any = arr.shift();
+      if (id && node.id == id) {
+        found = true;
+        return node;
       } else {
         arr.push(...node.children);
       }
