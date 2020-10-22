@@ -1,7 +1,7 @@
 .toolbar-container {
   position: absolute;
-  height: 100%;
-  width: 85%;
+  height: 1px;
+  width: 100%;
   outline: none;
   z-index: -1;
 
@@ -24,16 +24,21 @@
   //   }
   &.visible {
     z-index: 2;
+    height: 100%;
+    width: 85%;
   }
 }
 .list-text-img {
   width: 100%;
   cursor: pointer;
+  position: relative;
+  z-index: 8;
 }
 .file-data-element {
   &:hover {
     .toolbar-container {
-      z-index: 1;
+      z-index: 9;
+      height: 15px;
     }
   }
 }
