@@ -31,6 +31,10 @@
   position: relative;
 }
 .file-data-element {
+  padding: 3px;
+  width: 100px;
+  margin-left: 5px;
+
   input {
     z-index: 100;
     background-color: transparent;

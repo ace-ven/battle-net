@@ -2,7 +2,6 @@ import { compile } from "../helpers/complier";
 
 export function processData(data: any): string {
   // Process the data without stalling the UI
-  console.log("data", data);
   return data;
 }
 
@@ -18,7 +17,6 @@ export const testUserCode = (userSolution: string, challengeData: any) => {
 };
 
 const createTestGroupArray = (tests: any) => {
-  console.log("tests", tests);
   return {
     first: [
       { value: decideType(tests.paramA1?.value, tests.typeA1?.value) },

@@ -8,7 +8,6 @@ import { Resizable } from "re-resizable";
 import { parseSecondToMin } from "../../helpers/timer";
 import { stripFunction } from "../../helpers/striper";
 import Worker from "../../workers";
-import TerminalIDE from "../IDE/Termial";
 
 type inputParams = {
   display: string;
@@ -30,8 +29,19 @@ const CreateForm = () => {
     (newState as any)[`${event.target.name}`].value = event.target.value;
     setFormState({ ...newState });
   };
+
   useEffect(() => {
-    createIdeContent();
+    const {
+      challengeName: { value: name },
+      description: { value: desc },
+      duration: { value: time },
+      functionParams: { value: params },
+    } = formState;
+
+    const outputStr: string = `\n\n//${desc}\n//You got ${parseSecondToMin(
+      time
+    )} for complete this challenge \nfunction ${name}(${params}) {\n\n}`;
+    setIdeStr(outputStr);
     setChallengeValid(false);
   }, [formState]);
 
@@ -100,27 +110,11 @@ const CreateForm = () => {
     });
   };
 
-  const createIdeContent = () => {
-    const {
-      challengeName: { value: name },
-      description: { value: desc },
-      duration: { value: time },
-      functionParams: { value: params },
-    } = formState;
-
-    const outputStr: string = `\n\n//${desc}\n//You got ${parseSecondToMin(
-      time
-    )} for complete this challenge \nfunction ${name}(${params}) {\n\n}`;
-    setIdeStr(outputStr);
-  };
-
   const handleUserAnswer = (userCode: string) => {
     const stripCode = stripFunction(userCode);
     setIdeStr(userCode);
     setUserCode(stripCode);
   };
-
-  const handleSubmit = () => {};
 
   const handleTestCode = async () => {
     const worker = new Worker();
@@ -132,14 +126,11 @@ const CreateForm = () => {
       ...rest
     } = formState;
     const testResults: any = await worker.testUserCode(userCode, rest);
-    // console.log("innn", formatTerminalCode(testResults) as any);
-    // console.log("testResults", testResults);
     setChallengeValid(testResults.correct);
     setTestResults(formatTerminalCode(testResults) as any);
   };
 
   const formatTerminalCode = (data: any) => {
-    console.log("data --", data);
     const output = data
       ? `\n you're code results: \n
     code length: ${data.charLength}, \n

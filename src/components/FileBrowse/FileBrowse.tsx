@@ -5,7 +5,6 @@ type FileBrowseProps = {
   tree: any;
   updateEditorViews: any;
   handleFileUpdate: any;
-  updateEditorView: any;
   files: Array<any>;
   add: any;
 };
@@ -15,6 +14,7 @@ const FileBrowse = (props: FileBrowseProps) => {
     const output = [];
     output.push(
       <ListElement
+        key={element.id}
         element={element}
         updateEditorViews={props.updateEditorViews}
         renderFileList={renderFileList}
@@ -58,7 +58,8 @@ const ListElement = (props: any) => {
   }
   const detectedLang = (name: string) => {
     const langList: any = { pg: {}, js: {}, css: {}, html: {} };
-    const parts = name.split(".");
+    console.log("name", name);
+    const parts = name && name.split(".");
     return (
       (langList[parts[parts.length - 1]] && parts[parts.length - 1]) || "txt"
     );
@@ -76,7 +77,7 @@ const ListElement = (props: any) => {
   };
 
   return (
-    <li className="file-data-element">
+    <div className="file-data-element">
       <FileToolbar
         updateEditorViews={props.updateEditorViews}
         elemId={element.id}
@@ -85,13 +86,7 @@ const ListElement = (props: any) => {
         setCollapse={setCollapse}
         setRename={setRename}
       />
-      <div
-        onClick={() => {
-          console.log();
-          setCollapse(!collapse);
-        }}
-        className="list-text-img"
-      >
+      <div onClick={() => setCollapse(!collapse)} className="list-text-img">
         <span
           className={`${
             element.type === "file" ? "file" : "folder"
@@ -118,7 +113,7 @@ const ListElement = (props: any) => {
             .reverse()
             .map((e: any) => renderFileList(e))}
       </div>
-    </li>
+    </div>
   );
 };
 
@@ -131,7 +126,6 @@ const FileToolbar: any = (props: any) => {
   ) => {
     setVisible(false);
     props.setCollapse(false);
-    console.log("lang", lang);
     props.onAdd(props.elemId, type, lang);
   };
   return (
@@ -144,7 +138,6 @@ const FileToolbar: any = (props: any) => {
       onBlur={() => setVisible(false)}
       tabIndex={12}
       onClick={() => {
-        console.log("click");
         props.updateEditorViews(props.elemId);
       }}
     >

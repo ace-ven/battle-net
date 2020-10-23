@@ -34,10 +34,8 @@ export const compile = (data: any, code: string) => {
             (endTime as any) - (StartTime as any)
           ).getMilliseconds()} Milliseconds`;
           if (res === desire) {
-            console.log(`case ${index + 1}: Success`);
             answerGroup.push(true);
           } else {
-            console.log(`case ${index + 1}: Failed`);
             answerGroup.push(false);
           }
         } catch (err) {
@@ -45,10 +43,8 @@ export const compile = (data: any, code: string) => {
         }
       }
     });
-    console.log("answerGroup", answerGroup);
     result.correct = !answerGroup.filter((a) => a === false).length;
     result.testRes = answerGroup;
-    console.log("result", result);
     return result;
   } catch (error) {
     console.log("error", error);

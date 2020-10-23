@@ -80,7 +80,6 @@ class Tree {
     type: string,
     lang: string
   ) {
-    console.log("lang,", lang);
     const arr = [this.root];
     let found = false;
     if (!id) {
@@ -89,7 +88,7 @@ class Tree {
     }
     while (arr.length || found) {
       const node: any = arr.shift();
-      if (id && node.id == id) {
+      if (id && node.id === id) {
         found = true;
         node.add(newId || "82398123" + Math.random(), name, data, type, lang);
         return;
@@ -100,13 +99,12 @@ class Tree {
   }
 
   updateNodeName(id: string, name: string, lang: string) {
-    console.log("lang,", lang);
     const arr = [this.root];
     let found = false;
 
     while (arr.length || found) {
       const node: any = arr.shift();
-      if (id && node.id == id) {
+      if (id && node.id === id) {
         found = true;
         node.name = name;
         node.lang = lang;
@@ -123,7 +121,7 @@ class Tree {
 
     while (arr.length || found) {
       const node: any = arr.shift();
-      if (id && node.id == id) {
+      if (id && node.id === id) {
         found = true;
         node.data = data;
         return node;
@@ -139,7 +137,7 @@ class Tree {
 
     while (arr.length || found) {
       const node: any = arr.shift();
-      if (id && node.id == id) {
+      if (id && node.id === id) {
         found = true;
         return node;
       } else {

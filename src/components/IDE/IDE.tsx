@@ -14,6 +14,7 @@ import "./IDE.scss";
 
 const IDE = (props: any) => {
   const { visible = true } = props;
+  console.log("props.e", props.elementId);
   return (
     <div
       className={`ide-container ${props.ideKind} ${
@@ -23,21 +24,21 @@ const IDE = (props: any) => {
       <AceEditor
         mode={props.mode || "javascript"}
         theme="monokai"
-        onChange={(e) => props.updateUserCode(e)}
+        onChange={(e) => props.elementId && props.updateUserCode(e)}
         name="UNIQUE_ID_OF_DIV"
         editorProps={{
           $blockScrolling: true,
           enableBasicAutocompletion: true,
           enableLiveAutocompletion: true,
         }}
+        readOnly={!props.elementId}
         // defaultValue={props.code}
         fontSize={props.fontSize || 14}
         showPrintMargin={true}
         showGutter={true}
         highlightActiveLine={true}
         // placeholder={props.code}
-        value={props.code}
-        // value
+        value={props.elementId ? props.code : ""}
         setOptions={{
           enableBasicAutocompletion: true,
           enableLiveAutocompletion: true,

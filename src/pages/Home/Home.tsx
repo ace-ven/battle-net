@@ -1,6 +1,5 @@
 import React from "react";
 import "./Home.scss";
-import { read, write } from "./test";
 
 const HomePage: any = () => {
   if (window.Worker) {
@@ -10,17 +9,7 @@ const HomePage: any = () => {
       console.log("Message posted to worker");
     }, 2000);
 
-    // write().then((data) => {
-    //   read().then((d) => console.log(d));
-    // });
-
-    // worker.onchange = function () {
-    //   myWorker.postMessage([first.value, second.value]);
-    //   console.log("Message posted to worker");
-    // };
-
     myWorker.onmessage = function (e) {
-      // result.textContent = e.data;
       console.log("Message received from worker");
     };
   } else {
@@ -29,7 +18,6 @@ const HomePage: any = () => {
   return (
     <div className="home-page-container">
       <h1> THIS IS HOME PAGE</h1>
-      {/* <button onClick={testMsp}></button> */}
     </div>
   );
 };
