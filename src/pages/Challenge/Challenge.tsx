@@ -9,9 +9,15 @@ import {
   detectedDragYLeft,
   detectedDragYRight,
 } from "../../helpers/dnd";
-import RegularBtn from "../../components/Buttons/Buttons";
+import {
+  RegularBtn,
+  ChallengeActionBtn,
+} from "../../components/Buttons/Buttons";
+import { CheckBox, DropInput } from "../../components/inputs/SwitchInput";
+import { connect } from "react-redux";
+import { changeTheme } from "../../store/actions/UI.actions";
 
-const Challenge = () => {
+const Challenge = (props: any) => {
   const [x, setX] = useState(0);
   const [yRight, setYRight] = useState(0);
   const [yLeft, setYLeft] = useState(0);
@@ -25,6 +31,7 @@ const Challenge = () => {
   const mainDivider = useRef(null);
 
   useEffect(() => {
+    props.changeTheme();
     setFileStructure([tree.renderMapObj()]);
     handleWindowMovement();
   }, [tree]);
@@ -91,17 +98,6 @@ const Challenge = () => {
 
   return (
     <>
-      <div className="challenge-header">
-        <RegularBtn
-          text={"play"}
-          rounded={true}
-          fn={renderResults}
-          color={"white"}
-          borderColor={"red"}
-          borderWidth={"0px"}
-          fill={"orange"}
-        />
-      </div>
       <div className="file-browse">
         <FileBrowse
           tree={[]}
@@ -185,4 +181,10 @@ const Challenge = () => {
   );
 };
 
-export default Challenge;
+const mapStateToProps = (dispatch: any) => {
+  return {
+    changeTheme: () => dispatch(changeTheme()),
+  };
+};
+
+export default connect(null, mapStateToProps)(Challenge);

@@ -14,3 +14,48 @@ button {
   &.full {
   }
 }
+
+.challenge-btn {
+  padding: 1px;
+  min-width: 50px;
+  font-size: 10px;
+  height: 25px;
+  color: white;
+  border-color: white;
+  position: relative;
+  overflow: hidden;
+  &.blue {
+    color: #03a9f4;
+    border-color: #03a9f4;
+    .beta {
+      border: #03a9f4;
+      color: white;
+      background-color: #03a9f4;
+      box-shadow: 1px 1px 7px 0px #03a9f4;
+    }
+  }
+  &.red {
+    color: #e91e63;
+    border-color: #e91e63;
+    .beta {
+      border: #e91e63;
+      color: white;
+      background-color: #e91e63;
+      box-shadow: 1px 1px 7px 0px #e91e63;
+    }
+  }
+  .beta {
+    position: absolute;
+    border: white;
+    color: black;
+    background-color: white;
+    box-shadow: 1px 1px 7px 0px white;
+    right: 0px;
+    transform: rotate(45deg);
+    top: 5px;
+    font-size: 8px;
+    padding: 2px;
+    width: 50px;
+    font-weight: bold;
+  }
+}

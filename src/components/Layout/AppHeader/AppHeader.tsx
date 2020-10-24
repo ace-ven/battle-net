@@ -2,16 +2,22 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { changeTheme } from "../../../store/actions/UI.actions";
+import { history } from "../../AppRouter";
 import Avatar from "../../Avatar/Avatar";
-import RegularBtn from "../../Buttons/Buttons";
+import { ChallengeActionBtn, RegularBtn } from "../../Buttons/Buttons";
 import SearchComponent from "../../Search/Search";
 import AppLogo from "../AppLogo/AppLogo";
 
 const AppHeader = (props: any) => {
+  const {
+    location: { pathname },
+  } = history as any;
+  console.log(history);
+  const isEditor = (pathname as string).includes("challenge");
   const [isLoogedIn, setLogin] = useState(false);
   return (
     <header className="app-header-container">
-      <nav className="app-header">
+      <nav className={`app-header ${isEditor ? "coding" : ""}`}>
         <div className="left">
           <div className="app-brand margin-medium">
             <AppLogo />
@@ -65,4 +71,4 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppHeader);
+export default connect(mapStateToProps, mapStateToProps)(AppHeader);

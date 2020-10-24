@@ -14,7 +14,12 @@ type ButtonProps = {
   disabled?: boolean;
 };
 
-const RegularBtn = (props: ButtonProps) => {
+type ChallengeActionProps = {
+  img?: any;
+  isBeta?: boolean;
+} & ButtonProps;
+
+export const RegularBtn = (props: ButtonProps) => {
   const {
     text,
     fn,
@@ -28,7 +33,7 @@ const RegularBtn = (props: ButtonProps) => {
   } = props;
   return (
     <button
-      className={`${rounded ? "rounded" : ""}`}
+      className={`btn ${rounded ? "rounded" : ""}`}
       disabled={disabled}
       style={{
         backgroundColor: disabled ? "#ffa50073" : fill,
@@ -44,4 +49,13 @@ const RegularBtn = (props: ButtonProps) => {
   );
 };
 
-export default RegularBtn;
+export const ChallengeActionBtn = (props: ChallengeActionProps) => {
+  return (
+    <button className={`challenge-btn ${props.color}`}>
+      {props.text}
+      {props.isBeta ? <div className="beta">SOON!</div> : <></>}
+    </button>
+  );
+};
+
+// export default RegularBtn;

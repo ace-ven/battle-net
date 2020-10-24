@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { ChallengeActionBtn } from "../Buttons/Buttons";
+import { CheckBox } from "../inputs/SwitchInput";
 import "./styles.scss";
 
 type FileBrowseProps = {
@@ -10,6 +12,7 @@ type FileBrowseProps = {
 };
 
 const FileBrowse = (props: FileBrowseProps) => {
+  const [isCollapse, setCollapse] = useState(false);
   const renderFileList = (element: any) => {
     const output = [];
     output.push(
@@ -26,22 +29,43 @@ const FileBrowse = (props: FileBrowseProps) => {
     return output;
   };
   return (
-    <div>
-      <title>FILE BROWSE</title>
-      <ul>
-        {props.files &&
-          props.files.length &&
-          props.files
-            .sort()
-            .reverse()
-            .map((element: any) => {
-              return renderFileList(element);
-            })}
-        <FileToolbar
-          updateEditorViews={props.updateEditorViews}
-          onAdd={props.add}
-        />
-      </ul>
+    <div className="side-menu">
+      <div className={`actions ${isCollapse ? "collapse" : ""}`}>
+        <div className="title" onClick={() => setCollapse(!isCollapse)}>
+          actions
+        </div>
+        <div className="btn-container">
+          <div className="btn-group">
+            <ChallengeActionBtn text={"play"} color={"blue"} fn={() => {}} />
+            <CheckBox label={"auto play"} func={() => {}} value={false} />
+          </div>
+          <ChallengeActionBtn text={"save"} color={"blue"} fn={() => {}} />
+          <ChallengeActionBtn
+            isBeta={true}
+            text={"live"}
+            color={"red"}
+            fn={() => {}}
+          />
+          <ChallengeActionBtn isBeta={true} text={"invite"} fn={() => {}} />
+        </div>
+      </div>
+      <div className={`files`}>
+        <div className="title">Files Browse</div>
+        <ul className="file-view">
+          {props.files &&
+            props.files.length &&
+            props.files
+              .sort()
+              .reverse()
+              .map((element: any) => {
+                return renderFileList(element);
+              })}
+          <FileToolbar
+            updateEditorViews={props.updateEditorViews}
+            onAdd={props.add}
+          />
+        </ul>
+      </div>
     </div>
   );
 };

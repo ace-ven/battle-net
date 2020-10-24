@@ -10,6 +10,12 @@ type TextInput = {
   options?: Array<String>;
 };
 
+type CheckboxProps = {
+  label: string;
+  func: any;
+  value: any;
+};
+
 export const TextInput = (props: TextInput) => {
   const [focused, setFocused] = useState(false);
 
@@ -90,6 +96,15 @@ export const SwitchInput = (props: SwitchProps) => {
       >
         <div className={`switch-circle ${active ? "active" : ""}`}></div>
       </div>
+    </div>
+  );
+};
+
+export const CheckBox = (props: CheckboxProps) => {
+  return (
+    <div className="checkbox-container">
+      <input type="checkbox" />
+      <p>{props.label}</p>
     </div>
   );
 };

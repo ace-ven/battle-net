@@ -68,6 +68,14 @@ html {
     margin: auto;
     position: relative;
 
+    &.coding {
+      height: 30px;
+      .logo {
+        height: 30px !important;
+        width: 30px !important;
+      }
+    }
+
     .left {
       display: flex;
       align-items: center;
@@ -135,7 +143,7 @@ html {
 
   .editor {
     position: absolute;
-    top: 64px;
+    top: 33px;
     bottom: 0;
     left: 0;
     right: 0;

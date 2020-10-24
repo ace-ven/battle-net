@@ -2,28 +2,89 @@
   position: absolute;
   height: 100%;
   width: 150px;
-  background-color: black;
+  background-color: #202227;
   z-index: 10;
   color: white;
   overflow: hidden;
   overflow-y: scroll;
   overflow-x: scroll;
-
+  .side-menu {
+    display: flex;
+    flex-direction: column;
+    .title {
+      margin-bottom: 5px;
+      background-color: #313131;
+      font-size: 12px;
+      padding-left: 12px;
+      text-transform: capitalize;
+      border-bottom: 1px solid #4f4f4f;
+      position: relative;
+      &:after {
+        content: "";
+        position: absolute;
+        border-bottom: 2px solid white;
+        border-left: 2px solid white;
+        right: 20px;
+        height: 5px;
+        width: 5px;
+        display: flex;
+        align-items: center;
+        top: 3px;
+        transform: rotate(-45deg);
+      }
+    }
+    height: 100%;
+    .btn-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      height: 100%;
+    }
+    .files {
+      // height: 80%;
+      .file-view {
+        margin: 0px;
+        margin-left: 20px;
+        padding: 0;
+      }
+    }
+    .actions {
+      height: 180px;
+      display: flex;
+      flex-direction: column;
+      transition: height 0.2s ease;
+      overflow: hidden;
+      &.collapse {
+        height: 15px;
+        .btn-container {
+          display: none;
+        }
+      }
+      .btn-group {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+  }
   li {
     position: relative;
-    // height: 50px;
     margin: 5px 0px;
+    border: none;
+
     li {
       position: relative;
       left: 10px;
+      border: none;
     }
   }
   span {
-    height: 20px;
-    width: 20px;
+    height: 12px;
+    width: 12px;
     background-size: cover;
     position: absolute;
-    left: -25px;
+    left: -15px;
+
     &.file {
       &.js {
         background-image: url("../../assets//images//js.png");
@@ -48,11 +109,24 @@
   }
 }
 
+.challenge-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px 27px;
+  height: 35px;
+  .btn-group {
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+  }
+}
+
 .challenge-container {
   display: flex;
   justify-content: space-around;
   position: fixed;
-  top: 65px;
+  top: 30px;
   bottom: 0;
   left: 0;
   right: 0;

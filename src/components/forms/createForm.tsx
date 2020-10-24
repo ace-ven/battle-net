@@ -3,7 +3,7 @@ import { TextInput, DropInput, SwitchInput } from "../inputs/SwitchInput";
 import formSchema from "./newChallengeSchema.json";
 import "./forms.scss";
 import IDE from "../IDE/IDE";
-import RegularBtn from "../Buttons/Buttons";
+import { RegularBtn } from "../Buttons/Buttons";
 import { Resizable } from "re-resizable";
 import { parseSecondToMin } from "../../helpers/timer";
 import { stripFunction } from "../../helpers/striper";
