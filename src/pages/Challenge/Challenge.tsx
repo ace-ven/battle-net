@@ -16,6 +16,7 @@ import {
 import { CheckBox, DropInput } from "../../components/inputs/SwitchInput";
 import { connect } from "react-redux";
 import { changeTheme } from "../../store/actions/UI.actions";
+import FileIndicators from "../../components/FilesIndicator/FileIndicators";
 
 const Challenge = (props: any) => {
   const [x, setX] = useState(0);
@@ -152,6 +153,7 @@ const Challenge = (props: any) => {
             // onClick={detectedDrag}
           ></div>
           <div className="editor-bottom">
+            <FileIndicators />
             <IDE
               ideKind={"code"}
               visible={true}

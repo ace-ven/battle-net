@@ -1,0 +1,23 @@
+.indicators-container {
+  display: flex;
+  height: 25px;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #1f2227;
+  color: #a99b80;
+  overflow-x: scroll;
+  div {
+    border: 1px solid #33363a;
+    padding: 0px 5px;
+    color: #a99b80;
+    border-bottom-right-radius: 15px;
+    display: flex;
+    justify-content: space-around;
+    width: 122px;
+    min-width: 120px;
+    &.active {
+      background-color: red;
+    }
+  }
+}
