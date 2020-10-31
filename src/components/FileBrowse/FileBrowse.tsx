@@ -5,10 +5,13 @@ import "./styles.scss";
 
 type FileBrowseProps = {
   tree: any;
-  updateEditorViews: any;
-  handleFileUpdate: any;
+  updateEditorViews: (id: string) => void;
+  handleFileUpdate: (id: string, name: string, lang: string) => void;
   files: Array<any>;
-  add: any;
+  add: (id: string, type: string, lang: string) => void;
+  deleteFile: (id: string) => void;
+  renderResults: () => void;
+  setAutoPlay: () => void;
 };
 
 const FileBrowse = (props: FileBrowseProps) => {
@@ -23,6 +26,7 @@ const FileBrowse = (props: FileBrowseProps) => {
         renderFileList={renderFileList}
         onAdd={props.add}
         handleFileUpdate={props.handleFileUpdate}
+        deleteFile={props.deleteFile}
       />
     );
 
@@ -36,8 +40,16 @@ const FileBrowse = (props: FileBrowseProps) => {
         </div>
         <div className="btn-container">
           <div className="btn-group">
-            <ChallengeActionBtn text={"play"} color={"blue"} fn={() => {}} />
-            <CheckBox label={"auto play"} func={() => {}} value={false} />
+            <ChallengeActionBtn
+              text={"play"}
+              color={"blue"}
+              fn={props.renderResults}
+            />
+            <CheckBox
+              label={"auto play"}
+              func={props.setAutoPlay}
+              value={false}
+            />
           </div>
           <ChallengeActionBtn text={"save"} color={"blue"} fn={() => {}} />
           <ChallengeActionBtn
@@ -82,7 +94,6 @@ const ListElement = (props: any) => {
   }
   const detectedLang = (name: string) => {
     const langList: any = { pg: {}, js: {}, css: {}, html: {} };
-    console.log("name", name);
     const parts = name && name.split(".");
     return (
       (langList[parts[parts.length - 1]] && parts[parts.length - 1]) || "txt"
@@ -109,6 +120,7 @@ const ListElement = (props: any) => {
         elemType={element.type}
         setCollapse={setCollapse}
         setRename={setRename}
+        deleteFile={props.deleteFile}
       />
       <div onClick={() => setCollapse(!collapse)} className="list-text-img">
         <span
@@ -169,23 +181,38 @@ const FileToolbar: any = (props: any) => {
         <ul>
           {props.elemType !== "file" ? (
             <React.Fragment>
-              <li onClick={() => handleFileAction(undefined, "js")}>
+              <li
+                className="browse-file-element"
+                onClick={() => handleFileAction(undefined, "js")}
+              >
                 Add new JS File
               </li>
-              <li onClick={() => handleFileAction(undefined, "html")}>
+              <li
+                className="browse-file-element"
+                onClick={() => handleFileAction(undefined, "html")}
+              >
                 Add new HTML File
               </li>
-              <li onClick={() => handleFileAction(undefined, "css")}>
+              <li
+                className="browse-file-element"
+                onClick={() => handleFileAction(undefined, "css")}
+              >
                 Add new CSS File
               </li>
 
-              <li onClick={() => handleFileAction("folder")}>Add new Folder</li>
+              <li
+                className="browse-file-element"
+                onClick={() => handleFileAction("folder")}
+              >
+                Add new Folder
+              </li>
             </React.Fragment>
           ) : (
             <React.Fragment />
           )}
 
           <li
+            className="browse-file-element"
             onClick={() => {
               setVisible(false);
               props.setRename(true);
@@ -193,7 +220,12 @@ const FileToolbar: any = (props: any) => {
           >
             Rename
           </li>
-          <li>Delete</li>
+          <li
+            className="browse-file-element"
+            onClick={() => props.deleteFile(props.elemId)}
+          >
+            Delete
+          </li>
         </ul>
       ) : (
         ""

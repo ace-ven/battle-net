@@ -18,6 +18,10 @@
       cursor: pointer;
       padding: 5px;
     }
+    .browse-file-element {
+      z-index: 20;
+      cursor: pointer;
+    }
   }
   &.visible {
     z-index: 2;

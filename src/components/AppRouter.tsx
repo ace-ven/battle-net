@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Router,
   Route,
@@ -14,22 +14,38 @@ import Challenge from "../pages/Challenge/Challenge";
 export const history = createBrowserHistory();
 
 const AppRouter: React.FC = () => {
+  const [isFullMode, setFullMode] = useState(false);
+  useEffect(() => {
+    setFullMode(!!history.location.pathname.includes("challenge"));
+  }, []);
+
+  history.listen((location, action) => {
+    setFullMode(!!location.pathname.includes("challenge"));
+  });
+
   return (
     <Router history={history}>
-      <AppHeader />
-      <Switch>
-        <div className="layout">
-          <Route path="/" component={HomePage} exact={true} />
-          <Route path="/create" component={Create} exact={true} />
-          {/* <Route path="/challenge" component={Challenge} exact={true} /> */}
-        </div>
-      </Switch>
-
-      <Switch>
-        <div className="editor">
-          <Route path="/challenge" component={Challenge} exact={true} />
-        </div>
-      </Switch>
+      {!isFullMode ? (
+        <>
+          <Switch>
+            <div className="layout">
+              <AppHeader />
+              <Route path="/" component={HomePage} exact={true} />
+              <Route path="/create" component={Create} exact={true} />
+              {/* <Route path="/challenge" component={Challenge} exact={true} /> */}
+            </div>
+          </Switch>
+        </>
+      ) : (
+        <>
+          <Switch>
+            <div className="editor">
+              <AppHeader isEditor={true} />
+              <Route path="/challenge" component={Challenge} exact={true} />
+            </div>
+          </Switch>
+        </>
+      )}
     </Router>
   );
 };

@@ -51,7 +51,7 @@ export const RegularBtn = (props: ButtonProps) => {
 
 export const ChallengeActionBtn = (props: ChallengeActionProps) => {
   return (
-    <button className={`challenge-btn ${props.color}`}>
+    <button className={`challenge-btn ${props.color}`} onClick={props.fn}>
       {props.text}
       {props.isBeta ? <div className="beta">SOON!</div> : <></>}
     </button>

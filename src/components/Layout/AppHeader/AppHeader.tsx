@@ -9,15 +9,10 @@ import SearchComponent from "../../Search/Search";
 import AppLogo from "../AppLogo/AppLogo";
 
 const AppHeader = (props: any) => {
-  const {
-    location: { pathname },
-  } = history as any;
-  console.log(history);
-  const isEditor = (pathname as string).includes("challenge");
   const [isLoogedIn, setLogin] = useState(false);
   return (
     <header className="app-header-container">
-      <nav className={`app-header ${isEditor ? "coding" : ""}`}>
+      <nav className={`app-header ${props.isEditor ? "coding" : ""}`}>
         <div className="left">
           <div className="app-brand margin-medium">
             <AppLogo />
@@ -71,4 +66,4 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-export default connect(mapStateToProps, mapStateToProps)(AppHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(AppHeader);

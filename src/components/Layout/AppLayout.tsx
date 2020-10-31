@@ -18,6 +18,7 @@ const AppLayout = (props: AppLayoutProps) => {
 };
 
 const mapStateToProps = (state: any) => {
+  console.log("state", state);
   return {
     darkMode: state.UI.darkMode,
   };

@@ -23,6 +23,6 @@ import { UI_ACTIONS } from "./../types.d";
 //   payload: status,
 // });
 
-export const changeTheme = () => {
-  return { type: UI_ACTIONS.DARK_MODE };
+export const changeTheme = (status: boolean = false) => {
+  return { type: UI_ACTIONS.DARK_MODE, payload: status };
 };

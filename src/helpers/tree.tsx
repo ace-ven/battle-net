@@ -33,6 +33,8 @@ class Node {
     );
   }
   remove(id: string) {
+    console.log("this", this);
+    console.log("sfsdfd", id);
     this.children = this.children.filter((e) => e.id !== id);
   }
 }
@@ -142,6 +144,23 @@ class Tree {
         return node;
       } else {
         arr.push(...node.children);
+      }
+    }
+  }
+  deleteNodeById(id: string) {
+    const arr = [this.root];
+    let found = false;
+    let parent = undefined;
+    while (arr.length || found) {
+      const node: any = arr.shift();
+      if (id && node && node.id === id) {
+        console.log(parent);
+        parent.remove(id);
+        found = true;
+        return;
+      } else {
+        node && arr.push(...node.children);
+        parent = node;
       }
     }
   }

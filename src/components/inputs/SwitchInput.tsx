@@ -103,7 +103,7 @@ export const SwitchInput = (props: SwitchProps) => {
 export const CheckBox = (props: CheckboxProps) => {
   return (
     <div className="checkbox-container">
-      <input type="checkbox" />
+      <input type="checkbox" onChange={props.func} />
       <p>{props.label}</p>
     </div>
   );

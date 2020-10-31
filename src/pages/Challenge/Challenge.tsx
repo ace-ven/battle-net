@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import FileBrowse from "../../components/FileBrowse/FileBrowse";
 import IDE from "../../components/IDE/IDE";
 import { Tree } from "../../helpers/tree";
@@ -23,15 +23,18 @@ const Challenge = (props: any) => {
   const [yLeft, setYLeft] = useState(0);
   const [fileStructure, setFileStructure] = useState([] as any);
   const [tree] = useState(new Tree(""));
-  const [logicCode, setLogicCode] = useState(undefined) as any;
-  const [cssCode, setCSSCode] = useState(undefined) as any;
-  const [htmlCode, setHtmlCode] = useState(undefined) as any;
+  const [logicCode, setLogicCode] = useState({}) as any;
+  const [cssCode, setCSSCode] = useState({}) as any;
+  const [htmlCode, setHtmlCode] = useState({}) as any;
+  const [isAutoPlay, setAutoPlay] = useState(false);
+  const [interval, createInterval] = useState(undefined) as any;
+  const [fullTXT, setFullTXT] = useState("");
   const rightDivider = useRef(null);
   const leftDivider = useRef(null);
   const mainDivider = useRef(null);
 
   useEffect(() => {
-    props.changeTheme();
+    props.changeTheme(true);
     setFileStructure([tree.renderMapObj()]);
     handleWindowMovement();
   }, [tree]);
@@ -43,21 +46,22 @@ const Challenge = (props: any) => {
   };
 
   const renderResults = () => {
-    debugger;
     const html = `${htmlCode?.data || ""} <script type="text/babel">${
       logicCode?.data || ""
-    }</script> <style>${cssCode?.data || ""}</style>`;
-    var doc = (document.getElementById("iframe") as any).contentWindow.document;
-    doc.open();
-    doc.write(html);
-    doc.close();
+    }</script> <style>
+    ${cssCode?.data || ""}</style>`;
+    debugger;
+    if (html !== fullTXT) {
+      setFullTXT(html);
+      var doc = (document.getElementById("iframe") as any).contentWindow
+        .document;
+      doc.open();
+      doc.write(html);
+      doc.close();
+    }
   };
 
-  setTimeout(() => {}, 1000);
-
-  setTimeout(() => {}, 1000);
-
-  const updateEditorViews = (id: string) => {
+  const updateEditorViews = (id: string): void => {
     const node = tree.getNodeById(id);
     if (node) {
       if (node.lang === "html") {
@@ -84,16 +88,28 @@ const Challenge = (props: any) => {
     tree.updateNodeName(id, name, lang);
   };
 
+  const deleteFile = (id: string) => {
+    tree.deleteNodeById(id);
+    setFileStructure([tree.renderMapObj()]);
+  };
+
   const addNewFile = (id: string, type = "file", lang: string) => {
     tree.addingNodeById(id, uuidv4(), "new file", "", type, lang);
     setFileStructure([tree.renderMapObj()]);
   };
 
-  const updateFileContent = (element: any, content: string, fuc: any) => {
+  const updateFileContent = (
+    element: any,
+    content: string,
+    func: any
+  ): void => {
     if (element) {
       const newNode = tree.updateNodeContent(element.id, content);
-      fuc(newNode);
+      func(newNode);
     }
+  };
+  const handleAutoPlayChecked = () => {
+    setAutoPlay(!isAutoPlay);
   };
 
   return (
@@ -105,6 +121,9 @@ const Challenge = (props: any) => {
           updateEditorViews={updateEditorViews}
           add={addNewFile}
           handleFileUpdate={handleFileUpdate}
+          deleteFile={deleteFile}
+          renderResults={renderResults}
+          setAutoPlay={handleAutoPlayChecked as () => void}
         />
       </div>
       <div className="challenge-container" style={{ left: "150px" }}>
@@ -173,7 +192,7 @@ const Challenge = (props: any) => {
           </div>
           <div ref={rightDivider} className="dividerY" id="dividerYRight"></div>
           <div className="editor-bottom iframe" id={"iframeContainer"}>
-            <iframe id={"iframe"}></iframe>
+            <iframe title={"challenge"} id={"iframe"}></iframe>
           </div>
         </div>
       </div>
@@ -183,8 +202,8 @@ const Challenge = (props: any) => {
 
 const mapStateToProps = (dispatch: any) => {
   return {
-    changeTheme: () => dispatch(changeTheme()),
+    changeTheme: (status: boolean) => dispatch(changeTheme(status)),
   };
 };
 
-export default connect(null, mapStateToProps)(Challenge);
+export default connect(null, mapStateToProps)(memo(Challenge));

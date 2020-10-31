@@ -2,7 +2,9 @@ import { UI_ACTIONS } from "./../types.d";
 export default (state: any = [], action: any) => {
   switch (action.type) {
     case UI_ACTIONS.DARK_MODE:
-      return { ...state, darkMode: !!!state.darkMode };
+      return { ...state, darkMode: action.payload };
+    case UI_ACTIONS.DARK_MODE_OFF:
+      return { ...state, darkMode: false };
     case UI_ACTIONS.SHOW_LOADER:
       return { ...state, showLoader: true };
     case UI_ACTIONS.HIDE_LOADER:
